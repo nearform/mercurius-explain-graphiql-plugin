@@ -1,4 +1,1 @@
-import Explain from './Explain'
-
-export { Explain }
-export default Explain
+export { useExplainPlugin } from './useExplainPlugin'

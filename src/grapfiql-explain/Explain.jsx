@@ -1,20 +1,8 @@
-import React, { useMemo, useRef } from 'react'
+import React from 'react'
 
-function Content() {
+export function Content() {
   return <div>This is the content </div>
 }
-function Icon() {
+export function Icon() {
   return <p>GE</p>
-}
-export function useExplorerPlugin(props) {
-  const propsRef = useRef(props)
-  propsRef.current = props
-  return useMemo(
-    () => ({
-      title: 'GraphiQL Explorer',
-      icon: () => <Icon />,
-      content: () => <Content {...propsRef.current} />
-    }),
-    []
-  )
 }

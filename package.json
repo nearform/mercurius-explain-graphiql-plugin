@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/nearform/mercurius-explain-graphiql-plugin.git"
   },
-  "homepage": "https://github.com/nearform/mercurius-explain-graphiql-plugin#readme",
+  "homepage": "/",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "url": "https://github.com/nearform/mercurius-explain-graphiql-plugin/issues"
   },
   "dependencies": {
+    "@graphiql/react": "^0.13.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
