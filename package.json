@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/nearform/mercurius-explain-graphiql-plugin.git"
   },
+  "homepage": "https://github.com/nearform/mercurius-explain-graphiql-plugin#readme",
   "keywords": [],
   "author": "",
   "license": "ISC",
