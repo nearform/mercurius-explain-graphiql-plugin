@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import { explainDataManager } from './ExplainDataManager'
 
 export function Content() {
-  const [__explain, setExplain] = useState()
+  const [__explain, setExplain] = useState(explainDataManager.getExplainData())
 
-  const storageExplain = JSON.parse(localStorage.getItem('__explain')) || []
   useEffect(() => {
-    console.log('explain', __explain)
-    setExplain(_ => __explain)
-  }, [storageExplain, __explain])
+    const eventListener = explainDataManager.addEventListener(
+      'updateExplainData',
+      (e, value) => {
+        setExplain(_ => e.target?.explainData)
+      }
+    )
+    return () => {
+      explainDataManager.removeEventListener('updateExplainData', eventListener)
+    }
+  }, [])
 
   return (
     <div style={{ height: '100%' }}>
