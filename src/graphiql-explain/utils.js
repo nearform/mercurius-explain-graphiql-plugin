@@ -1,4 +1,6 @@
-import { createGraphiQLFetcher, CreateFetcherOptions } from '@graphiql/toolkit'
+import { createGraphiQLFetcher } from '@graphiql/toolkit'
+import { explainDataManager } from './ExplainDataManager'
+
 /**
  *
  * @param {CreateFetcherOptions} options
@@ -24,10 +26,8 @@ export const createFetcher = (options, cbs = []) => {
 
 export function saveExplainResponse(data) {
   const { __explain } = data.data
-  console.log(data)
   if (__explain) {
-    //This is a temporary solution, because we cannot access the storeContext from graphiql
-    localStorage.setItem('__explain', JSON.stringify(__explain))
+    explainDataManager.setExplain(__explain)
   }
   return data
 }
