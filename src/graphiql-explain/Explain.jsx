@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { useEditorContext, useResponseEditor } from '@graphiql/react'
-export function Content(props) {
+
+export function Content() {
   const [__explain, setExplain] = useState()
 
-  const editorContext = useEditorContext({
-    nonNull: true,
-    caller: useResponseEditor()
-  })
+  const storageExplain = JSON.parse(localStorage.getItem('__explain')) || []
   useEffect(() => {
-    if (editorContext.tabs[editorContext.activeTabIndex].response) {
-      const response = JSON.parse(
-        editorContext.tabs[editorContext.activeTabIndex].response
-      )
-      if (response?.data?.__explain) {
-        setExplain([...response.data.__explain])
-        delete response.data.__explain
-        editorContext.tabs[editorContext.activeTabIndex].response =
-          JSON.stringify(response)
-      }
-    }
-  }, [editorContext])
+    console.log('explain', __explain)
+    setExplain(_ => __explain)
+  }, [storageExplain, __explain])
+
   return (
     <div style={{ height: '100%' }}>
+      <div style={{ display: 'flex' }}>
+        <p style={{ margin: '5px 10px' }}>Path</p>
+        <p style={{ margin: '5px 10px' }}>Time</p>
+      </div>
+
       {__explain &&
         __explain.length > 0 &&
         __explain.map(e => {
           return (
             <div key={e.path} style={{ display: 'flex' }}>
               <p style={{ margin: '5px 10px' }}>{e.path}</p>
-              <p style={{ margin: '5px 10px' }}>{e.start}</p>
-              <p style={{ margin: '5px 10px' }}>{e.stop}</p>
-              <p style={{ margin: '5px 10px' }}>{e.time}</p>
+              <p style={{ margin: '5px 10px' }}>{e.time.toFixed(2)} ms</p>
             </div>
           )
         })}
