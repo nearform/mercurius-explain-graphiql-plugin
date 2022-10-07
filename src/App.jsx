@@ -1,15 +1,18 @@
 import React from 'react'
 import { GraphiQL } from 'graphiql'
 import { useExplainPlugin } from './graphiql-explain'
-import { createFetcher, parseExplainResponse } from './graphiql-explain/utils'
+import { fetcherWrapper, parseExplainResponse } from './graphiql-explain/utils'
 import 'graphiql/graphiql.css'
 import '@graphiql/react/dist/style.css'
+import { createGraphiQLFetcher } from '@graphiql/toolkit'
 
 function App() {
   const explainPlugin = useExplainPlugin()
-  const fetch = createFetcher({ url: 'http://localhost:3001/graphql' }, [
-    parseExplainResponse
-  ])
+  const fetcher = createGraphiQLFetcher({
+    url: 'http://localhost:3001/graphql'
+  })
+
+  const fetch = fetcherWrapper(fetcher, [parseExplainResponse])
   return (
     <div
       style={{

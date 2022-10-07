@@ -10,9 +10,8 @@ import { explainDataManager } from './ExplainDataManager'
  * This function will be a wrapper over `createGrapiqlFetcher` allowing use the result before it's displayed.
  *
  */
-export const createFetcher = (options, cbs = []) => {
+export const fetcherWrapper = (fetcher, cbs = []) => {
   return async (gqlp, fetchOpt) => {
-    const fetcher = await createGraphiQLFetcher(options)
     const fetchResponse = await fetcher(gqlp, fetchOpt)
     if (fetchResponse.next) {
       const result = await fetchResponse.next()
