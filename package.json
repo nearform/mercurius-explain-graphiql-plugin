@@ -15,7 +15,7 @@
     "url": "https://github.com/nearform/mercurius-explain-graphiql-plugin/issues"
   },
   "dependencies": {
-    "@graphiql/react": "^0.13.2",
+    "@graphiql/react": "^0.13.3",
     "@graphiql/toolkit": "^0.8.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
