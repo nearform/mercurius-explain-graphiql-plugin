@@ -3,7 +3,7 @@ import { explainDataManager } from './ExplainDataManager'
 
 export function Content() {
   const [explain, setExplain] = useState(explainDataManager.getExplainData())
-
+  console.log(explain)
   useEffect(() => {
     const eventListener = explainDataManager.addEventListener(
       'updateExplainData',
@@ -18,23 +18,26 @@ export function Content() {
 
   return (
     <div style={{ height: '100%' }}>
-      <div style={{ display: 'flex' }}>
-        <p style={{ margin: '5px 10px' }}>Path</p>
-        <p style={{ margin: '5px 10px' }}>Time</p>
-      </div>
-
-      {explain &&
-        explain.length > 0 &&
-        explain.map(e => {
-          return (
-            <div key={e.path} style={{ display: 'flex' }}>
-              <p style={{ margin: '5px 10px' }}>{e.path}</p>
-              <p style={{ margin: '5px 10px' }}>
-                {e.time.toFixed(2)} nanoseconds
-              </p>
-            </div>
-          )
-        })}
+      <table style={{ width: '100%' }}>
+        <thead>
+          <tr>
+            <th style={{ textAlign: 'left' }}>Path</th>
+            <th style={{ textAlign: 'left' }}>Time (ms) </th>
+          </tr>
+        </thead>
+        <tbody>
+          {explain &&
+            explain.length > 0 &&
+            explain.map(e => {
+              return (
+                <tr key={e.path}>
+                  <td>{e.path}</td>
+                  <td>{(e.time * 1e-6).toFixed(2)} </td>
+                </tr>
+              )
+            })}
+        </tbody>
+      </table>
     </div>
   )
 }

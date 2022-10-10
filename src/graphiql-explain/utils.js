@@ -23,7 +23,7 @@ export const fetcherWrapper = (fetcher, cbs = []) => {
 }
 
 export function saveExplainResponse(data) {
-  const { explain } = data.data
+  const { explain } = data.extensions || {}
   if (explain) {
     explainDataManager.setExplain(explain)
   }
@@ -31,9 +31,8 @@ export function saveExplainResponse(data) {
 }
 
 export function deleteExplainFromResponse(data) {
-  const newResponse = { ...data }
-  delete newResponse.data.__explain
-  return newResponse
+  delete data?.extensions?.explain
+  return data
 }
 
 export function parseExplainResponse(data) {
