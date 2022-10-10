@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { explainDataManager } from './ExplainDataManager'
 
 export function Content() {
-  const [__explain, setExplain] = useState(explainDataManager.getExplainData())
+  const [explain, setExplain] = useState(explainDataManager.getExplainData())
 
   useEffect(() => {
     const eventListener = explainDataManager.addEventListener(
@@ -23,9 +23,9 @@ export function Content() {
         <p style={{ margin: '5px 10px' }}>Time</p>
       </div>
 
-      {__explain &&
-        __explain.length > 0 &&
-        __explain.map(e => {
+      {explain &&
+        explain.length > 0 &&
+        explain.map(e => {
           return (
             <div key={e.path} style={{ display: 'flex' }}>
               <p style={{ margin: '5px 10px' }}>{e.path}</p>
