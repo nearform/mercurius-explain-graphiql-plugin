@@ -6,7 +6,7 @@ export function useExplainPlugin(props) {
   propsRef.current = props
   return useMemo(
     () => ({
-      title: 'GraphiQL Explorer',
+      title: 'GraphiQL Explain',
       icon: () => <Icon />,
       content: () => <Content {...propsRef.current} />
     }),

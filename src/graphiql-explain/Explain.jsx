@@ -29,7 +29,9 @@ export function Content() {
           return (
             <div key={e.path} style={{ display: 'flex' }}>
               <p style={{ margin: '5px 10px' }}>{e.path}</p>
-              <p style={{ margin: '5px 10px' }}>{e.time.toFixed(2)} ms</p>
+              <p style={{ margin: '5px 10px' }}>
+                {e.time.toFixed(2)} nanoseconds
+              </p>
             </div>
           )
         })}

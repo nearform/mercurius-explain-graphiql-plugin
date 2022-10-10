@@ -1,4 +1,3 @@
-import { createGraphiQLFetcher } from '@graphiql/toolkit'
 import { explainDataManager } from './ExplainDataManager'
 
 /**
@@ -24,9 +23,9 @@ export const fetcherWrapper = (fetcher, cbs = []) => {
 }
 
 export function saveExplainResponse(data) {
-  const { __explain } = data.data
-  if (__explain) {
-    explainDataManager.setExplain(__explain)
+  const { explain } = data.data
+  if (explain) {
+    explainDataManager.setExplain(explain)
   }
   return data
 }
