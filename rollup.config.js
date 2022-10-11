@@ -20,6 +20,7 @@ const rollup = [
         sourcemap: true
       }
     ],
+    external: ['react', '@graphiql/toolkit'],
     plugins: [
       resolve({
         extensions: ['.js', '.jsx']
