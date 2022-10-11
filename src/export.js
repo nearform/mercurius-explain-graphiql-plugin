@@ -1,1 +1,1 @@
-export { useExplainPlugin } from './graphiql-explain/useExplainPlugin'
+export * from './graphiql-explain'
