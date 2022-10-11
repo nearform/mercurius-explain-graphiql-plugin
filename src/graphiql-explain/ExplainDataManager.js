@@ -1,6 +1,8 @@
 class ExplainDataManager extends EventTarget {
-  explainData = []
-
+  constructor() {
+    super()
+    this.explainData = []
+  }
   getExplainData() {
     return this.explainData
   }

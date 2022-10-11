@@ -15,17 +15,7 @@
     "url": "https://github.com/nearform/mercurius-explain-graphiql-plugin/issues"
   },
   "dependencies": {
-    "@graphiql/react": "^0.13.3",
-    "@graphiql/toolkit": "^0.8.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "graphiql": "^2.0.9",
-    "graphql": "^16.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^3.0.3"
+    "rollup-plugin-jsx": "^1.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,13 +24,21 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "lint": "eslint src/**/*.jsx",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "rollup": "rollup -c "
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@graphiql/react": "^0.13.3",
+    "@graphiql/toolkit": "^0.8.0",
+    "@rollup/plugin-commonjs": "^23.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "eslint": "^8.25.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -50,9 +48,17 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.9",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "graphiql": "^2.0.9",
+    "graphql": "^16.6.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-dts": "^4.2.3",
+    "web-vitals": "^3.0.3"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix"
@@ -71,5 +77,10 @@
   },
   "jest": {
     "resetMocks": false
-  }
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ]
 }

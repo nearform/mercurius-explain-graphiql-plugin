@@ -29,7 +29,9 @@ export function saveExplainResponse(data) {
 }
 
 export function deleteExplainFromResponse(data) {
-  delete data.extensions?.explain
+  if (data.extensions.explain) {
+    delete data.extensions.explain
+  }
   return data
 }
 
