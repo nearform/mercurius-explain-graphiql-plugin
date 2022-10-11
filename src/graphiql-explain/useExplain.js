@@ -3,7 +3,6 @@ import { explainDataManager } from './ExplainDataManager'
 
 export const useExplain = () => {
   const [explain, setExplain] = useState(explainDataManager.getExplainData())
-  console.log(explain)
   useEffect(() => {
     const eventListener = explainDataManager.addEventListener(
       'updateExplainData',
