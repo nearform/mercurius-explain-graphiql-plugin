@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { explainDataManager } from './ExplainDataManager'
+import React from 'react'
+import { useExplain } from './useExplain'
 
 export function Content() {
-  const [explain, setExplain] = useState(explainDataManager.getExplainData())
-  console.log(explain)
-  useEffect(() => {
-    const eventListener = explainDataManager.addEventListener(
-      'updateExplainData',
-      (e, value) => {
-        setExplain(_ => e.target?.explainData)
-      }
-    )
-    return () => {
-      explainDataManager.removeEventListener('updateExplainData', eventListener)
-    }
-  }, [])
+  const { explain } = useExplain()
 
   return (
     <div style={{ height: '100%' }}>
