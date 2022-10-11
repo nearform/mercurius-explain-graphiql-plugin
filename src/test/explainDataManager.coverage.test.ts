@@ -14,4 +14,10 @@ describe('Explain Data Manager', () => {
     const explainData = explainDataManager.getExplainData()
     expect(data.extensions.explain).toEqual(explainData)
   })
+
+  it('Explain Data Manager should have a default value and empty array', () => {
+    explainDataManager.setExplain(undefined)
+    const explainData = explainDataManager.getExplainData()
+    expect(explainData).toHaveLength(0)
+  })
 })
