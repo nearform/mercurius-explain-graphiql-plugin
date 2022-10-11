@@ -12,3 +12,4 @@ class ExplainDataManager extends EventTarget {
 }
 
 export const explainDataManager = new ExplainDataManager()
+export default explainDataManager
