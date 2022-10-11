@@ -1,24 +1,22 @@
 import { explainDataManager } from './ExplainDataManager'
-
+import { fetcherReturnToPromise } from '@graphiql/toolkit'
 /**
  *
- * @param {CreateFetcherOptions} options
+ * @param {Fetcher} fetcher
  * @param {((response:any)=>result)[]} cbs
  * @returns
  * @description
  * This function will be a wrapper over `createGrapiqlFetcher` allowing use the result before it's displayed.
  *
  */
+
 export const fetcherWrapper = (fetcher, cbs = []) => {
   return async (gqlp, fetchOpt) => {
     const fetchResponse = await fetcher(gqlp, fetchOpt)
-    if (fetchResponse.next) {
-      const result = await fetchResponse.next()
-      let cbsResult = { ...result.value }
-      for (const cb of cbs) cbsResult = cb(cbsResult)
-      return cbsResult
-    }
-    return fetchResponse
+    const result = await fetcherReturnToPromise(fetchResponse)
+    let cbsResult = { ...result }
+    for (const cb of cbs) cbsResult = cb(cbsResult)
+    return cbsResult
   }
 }
 
@@ -31,7 +29,7 @@ export function saveExplainResponse(data) {
 }
 
 export function deleteExplainFromResponse(data) {
-  delete data?.extensions?.explain
+  delete data.extensions?.explain
   return data
 }
 
