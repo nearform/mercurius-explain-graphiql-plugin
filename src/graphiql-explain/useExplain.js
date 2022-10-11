@@ -7,7 +7,7 @@ export const useExplain = () => {
     const eventListener = explainDataManager.addEventListener(
       'updateExplainData',
       (e, value) => {
-        setExplain(_ => e.target?.explainData)
+        setExplain(_ => e.target.explainData || [])
       }
     )
     return () => {
