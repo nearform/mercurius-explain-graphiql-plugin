@@ -7,7 +7,7 @@ const packageJson = require('./package.json')
 
 const rollup = [
   {
-    input: 'src/index.js',
+    input: 'src/export.js',
     output: [
       {
         file: packageJson.main,
