@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { explainDataManager } from './ExplainDataManager'
 
 export const useExplain = () => {
@@ -32,23 +32,28 @@ export const useExplain = () => {
     }
   }
 
-  const sort = (fieldName = 'path') => {
-    return order => {
-      let localOrder = order
-      if (!order || order === 0) {
-        return explain
-      } else if (order >= 1) {
-        localOrder = 1
-      } else {
-        localOrder = -1
-      }
-      setExplain(_ => {
-        return explain.sort((a, b) => {
-          return localOrder * `${a[fieldName]}`.localeCompare(`${b[fieldName]}`)
+  const sort = useCallback(
+    (fieldName = 'path') => {
+      return order => {
+        let localOrder = order
+        if (!order || order === 0) {
+          return explain
+        } else if (order >= 1) {
+          localOrder = 1
+        } else {
+          localOrder = -1
+        }
+        setExplain(_ => {
+          return explain.sort((a, b) => {
+            return (
+              localOrder * `${a[fieldName]}`.localeCompare(`${b[fieldName]}`)
+            )
+          })
         })
-      })
-    }
-  }
+      }
+    },
+    [explain]
+  )
 
   const sortPath = sort('path')
   const sortTime = sort('time')

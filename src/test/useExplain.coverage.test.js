@@ -28,15 +28,24 @@ describe('useExplain hook', () => {
   it("useExplain should change the timeOrder to 1 if it's not set", () => {
     const view = renderHook(useExplain)
     act(() => {
+      explainDataManager.setExplain(data.extensions.explain)
+    })
+    view.rerender()
+    act(() => {
       view.result.current.changeTimeOrder()
     })
     view.rerender()
     expect(view.result.current.timeOrder).toEqual(1)
     expect(view.result.current.pathOrder).toEqual(0)
+    expect(view.result.current.explain).toEqual(data.extensions.explain)
   })
 
   it("useExplain should change the timeOrder to -1 if it's already set", () => {
     const view = renderHook(useExplain)
+    act(() => {
+      explainDataManager.setExplain(data.extensions.explain)
+    })
+    view.rerender()
     act(() => {
       view.result.current.changeTimeOrder()
     })
@@ -47,6 +56,7 @@ describe('useExplain hook', () => {
     view.rerender()
     expect(view.result.current.timeOrder).toEqual(-1)
     expect(view.result.current.pathOrder).toEqual(0)
+    expect(view.result.current.explain).toEqual(data.extensions.explain)
   })
 
   it("useExplain should change the pathOrder to 1 if it's not set", () => {
