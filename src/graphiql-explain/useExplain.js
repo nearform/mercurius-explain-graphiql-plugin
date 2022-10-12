@@ -13,7 +13,7 @@ export const useExplain = () => {
     const eventListener = explainDataManager.addEventListener(
       'updateExplainData',
       (e, value) => {
-        setDefaultExplain(_ => e.target.explain || [])
+        setDefaultExplain(() => e.target.explainData || [])
         setExplain(_ => e.target.explainData || [])
       }
     )
