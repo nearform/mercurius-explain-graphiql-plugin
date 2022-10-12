@@ -61,23 +61,23 @@ export const useExplain = () => {
   const sortPath = sort('path')
   const sortTime = sort('time')
 
-  const changePathOrder = () => {
+  const changePathOrder = useCallback(() => {
     if (pathOrder !== 0) {
       setPathOrder(prev => -prev)
     } else {
       setPathOrder(1)
     }
     setTimeOrder(0)
-  }
+  }, [pathOrder])
 
-  const changeTimeOrder = () => {
+  const changeTimeOrder = useCallback(() => {
     if (timeOrder !== 0) {
       setTimeOrder(prev => -prev)
     } else {
       setTimeOrder(1)
     }
     setPathOrder(0)
-  }
+  }, [timeOrder])
   useEffect(() => {
     sortPath(pathOrder)
   }, [pathOrder, sortPath])
