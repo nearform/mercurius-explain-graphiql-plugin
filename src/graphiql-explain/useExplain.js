@@ -22,15 +22,18 @@ export const useExplain = () => {
     }
   }, [])
 
-  const searchByField = fieldName => {
-    return event => {
-      setExplain(_ => {
-        return defaultExplain.filter(element => {
-          return element[fieldName].includes(event.target.value)
+  const searchByField = useCallback(
+    fieldName => {
+      return event => {
+        setExplain(_ => {
+          return defaultExplain.filter(element => {
+            return element[fieldName].includes(event.target.value)
+          })
         })
-      })
-    }
-  }
+      }
+    },
+    [defaultExplain]
+  )
 
   const sort = useCallback(
     (fieldName = 'path') => {
