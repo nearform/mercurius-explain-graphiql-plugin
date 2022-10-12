@@ -19,48 +19,56 @@ export function Content() {
         <thead>
           <tr>
             <th
-              style={{
-                textAlign: 'left',
-                display: 'flex',
-                alignItems: 'center'
-              }}
               onClick={changePathOrder}
+              style={{ margin: 0, padding: 0, width: '50%' }}
             >
-              Path
-              {pathOrder !== 0 && (
-                <img
-                  src={arrow}
-                  style={{
-                    height: '100%',
-                    width: '20px',
-
-                    rotate: pathOrder > 0 ? '0deg' : '180deg'
-                  }}
-                  alt={`arrow-${pathOrder > 0 ? 'up' : 'down'}`}
-                />
-              )}
+              <div
+                style={{
+                  textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <p>Path</p>
+                {pathOrder !== 0 && (
+                  <img
+                    src={arrow}
+                    style={{
+                      height: '20px',
+                      // width: '20px',
+                      margin: 0,
+                      rotate: pathOrder > 0 ? '0deg' : '180deg'
+                    }}
+                    alt={`arrow-${pathOrder > 0 ? 'up' : 'down'}`}
+                  />
+                )}
+              </div>
             </th>
             <th
-              style={{
-                textAlign: 'left',
-                display: 'flex',
-                alignItems: 'center'
-              }}
               onClick={changeTimeOrder}
+              style={{ margin: 0, padding: 0, width: '50%' }}
             >
-              Time (ms)
-              {timeOrder !== 0 && (
-                <img
-                  src={arrow}
-                  style={{
-                    height: '100%',
-                    width: '20px',
+              <div
+                style={{
+                  textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <p>Time(ms)</p>
+                {timeOrder !== 0 && (
+                  <img
+                    src={arrow}
+                    style={{
+                      // height: '20px',
+                      width: '20px',
 
-                    rotate: timeOrder > 0 ? '0deg' : '180deg'
-                  }}
-                  alt={`arrow-${timeOrder > 0 ? 'up' : 'down'}`}
-                />
-              )}
+                      rotate: timeOrder > 0 ? '0deg' : '180deg'
+                    }}
+                    alt={`arrow-${timeOrder > 0 ? 'up' : 'down'}`}
+                  />
+                )}
+              </div>
             </th>
           </tr>
         </thead>
