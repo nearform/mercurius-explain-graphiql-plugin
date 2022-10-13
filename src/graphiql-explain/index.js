@@ -1,2 +1,2 @@
-export { useExplainPlugin } from './useExplainPlugin'
-export { fetcherWrapper, parseExplainResponse } from './utils'
+export { graphiqlExplainPlugin, umdPlugin } from './useExplainPlugin'
+export { parseExplainResponse } from './utils'

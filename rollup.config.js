@@ -1,5 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import svgr from '@svgr/rollup'
 import jsx from 'rollup-plugin-jsx'
 // import dts from 'rollup-plugin-dts'
 
@@ -18,6 +19,12 @@ const rollup = [
         file: packageJson.module,
         format: 'esm',
         sourcemap: true
+      },
+      {
+        file: packageJson.umd,
+        format: 'umd',
+        sourcemap: true,
+        name: 'mercuriusExplain'
       }
     ],
     external: ['react', '@graphiql/toolkit'],
@@ -25,6 +32,7 @@ const rollup = [
       resolve({
         extensions: ['.js', '.jsx']
       }),
+      svgr(),
       commonjs(),
       jsx({ factory: 'React.createElement' })
     ]

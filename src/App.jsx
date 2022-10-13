@@ -1,13 +1,14 @@
 import React from 'react'
 import { GraphiQL } from 'graphiql'
-import { useExplainPlugin } from './graphiql-explain'
-import { fetcherWrapper, parseExplainResponse } from './graphiql-explain/utils'
-import 'graphiql/graphiql.css'
-import '@graphiql/react/dist/style.css'
 import { createGraphiQLFetcher } from '@graphiql/toolkit'
 
+import { graphiqlExplainPlugin, parseExplainResponse } from './graphiql-explain'
+import { fetcherWrapper } from './fetcherWrapper'
+
+import 'graphiql/graphiql.css'
+import '@graphiql/react/dist/style.css'
+
 function App() {
-  const explainPlugin = useExplainPlugin()
   const fetcher = createGraphiQLFetcher({
     url: 'http://localhost:3001/graphql'
   })
@@ -22,7 +23,7 @@ function App() {
         overflow: 'scroll'
       }}
     >
-      <GraphiQL fetcher={fetch} plugins={[explainPlugin]} />
+      <GraphiQL fetcher={fetch} plugins={[graphiqlExplainPlugin()]} />
     </div>
   )
 }
