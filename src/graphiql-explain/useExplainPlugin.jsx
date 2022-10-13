@@ -1,15 +1,15 @@
-import { useMemo, useRef } from 'react'
 import { Content, Icon } from './Explain'
 
-export function useExplainPlugin(props) {
-  const propsRef = useRef(props)
-  propsRef.current = props
-  return useMemo(
-    () => ({
-      title: 'GraphiQL Explain',
-      icon: () => <Icon />,
-      content: () => <Content {...propsRef.current} />
-    }),
-    []
-  )
+export function graphiqlExplainPlugin() {
+  return umdPlugin()
+}
+
+export function umdPlugin() {
+  return {
+    title: 'GraphiQL Explain',
+    icon: () => <Icon />,
+    content: () => {
+      return <Content />
+    }
+  }
 }
