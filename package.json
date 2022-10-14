@@ -2,7 +2,6 @@
   "name": "mercurius-explain-graphiql-plugin",
   "version": "1.0.0",
   "description": "This is the graphiql plugin for mercurius-explain plugin for mercurius.",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nearform/mercurius-explain-graphiql-plugin.git"
