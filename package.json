@@ -25,7 +25,8 @@
     "prepare": "husky install",
     "lint": "eslint src/**/*.jsx",
     "lint:fix": "eslint --fix",
-    "rollup": "rollup -c "
+    "rollup": "rollup -c ",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
