@@ -14,20 +14,19 @@
   "bugs": {
     "url": "https://github.com/nearform/mercurius-explain-graphiql-plugin/issues"
   },
-  "dependencies": {
-    "rollup-plugin-jsx": "^1.0.3"
-  },
+  "dependencies": {},
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "lint": "eslint src/**/*.jsx",
     "lint:fix": "eslint --fix",
-    "rollup": "rollup -c "
+    "prepublish": "npm run build"
   },
   "devDependencies": {
+    "rollup-plugin-jsx": "^1.0.3",
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
     "@commitlint/cli": "^17.1.2",
