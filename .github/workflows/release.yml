@@ -16,7 +16,7 @@ on:
     types: [closed]
 
 jobs:
- release:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: nearform/optic-release-automation-action@v3
