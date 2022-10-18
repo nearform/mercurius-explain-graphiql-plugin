@@ -1,0 +1,47 @@
+.overThreshold {
+  color: red;
+}
+
+.height100 {
+  height: 100%;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.th {
+  margin: 0 5px 0 0;
+  padding: 0;
+  width: 33%;
+}
+
+.arrow {
+  height: 20px;
+  margin: 0;
+}
+
+.rotate180 {
+  rotate: 180deg;
+}
+
+.thContent {
+  display: flex;
+  align-items: center;
+}
+
+.justifyFlexStart {
+  justify-content: flex-start;
+}
+
+.justifyFlexEnd {
+  justify-content: flex-end;
+}
+
+.textAlignLeft {
+  text-align: left;
+}
+
+.textAlignRight {
+  text-align: right;
+}

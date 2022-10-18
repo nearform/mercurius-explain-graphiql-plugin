@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import svgr from '@svgr/rollup'
 import jsx from 'rollup-plugin-jsx'
+import postcss from 'rollup-plugin-postcss'
 // import dts from 'rollup-plugin-dts'
 
 const packageJson = require('./package.json')
@@ -33,6 +34,7 @@ const rollup = [
         extensions: ['.js', '.jsx']
       }),
       svgr(),
+      postcss({ modules: true }),
       commonjs(),
       jsx({ factory: 'React.createElement' })
     ]
