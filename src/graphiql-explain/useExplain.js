@@ -96,18 +96,24 @@ export const useExplain = () => {
   }, [totalOrder])
 
   useEffect(() => {
-    const sortPath = sort('path')
-    sortPath(pathOrder)
+    if (pathOrder) {
+      const sortPath = sort('path')
+      sortPath(pathOrder)
+    }
   }, [pathOrder, sort])
 
   useEffect(() => {
-    const sortTime = sort('time')
-    sortTime(timeOrder)
+    if (timeOrder) {
+      const sortTime = sort('time')
+      sortTime(timeOrder)
+    }
   }, [timeOrder, sort])
 
   useEffect(() => {
-    const sortTotal = sort('totalTime')
-    sortTotal(totalOrder)
+    if (totalOrder) {
+      const sortTotal = sort('totalTime')
+      sortTotal(totalOrder)
+    }
   }, [totalOrder, sort])
 
   // TODO: Find way to proper estimate the thresholds below
