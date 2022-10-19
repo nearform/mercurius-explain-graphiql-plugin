@@ -42,32 +42,28 @@ export const useExplain = () => {
     [defaultExplain]
   )
 
-  const sort = useCallback(
-    (fieldName = 'path') => {
-      return order => {
-        let localOrder = order
-        if (!order || order === 0) {
-          return explain
-        } else if (order >= 1) {
-          localOrder = 1
-        } else {
-          localOrder = -1
-        }
-        setExplain(_ => {
-          return explain.sort((a, b) => {
-            return (
-              localOrder * `${a[fieldName]}`.localeCompare(`${b[fieldName]}`)
-            )
-          })
-        })
+  const sort = useCallback((fieldName = 'path') => {
+    return order => {
+      let localOrder = order
+      if (!order || order === 0) {
+        return
+      } else if (order >= 1) {
+        localOrder = 1
+      } else {
+        localOrder = -1
       }
-    },
-    [explain]
-  )
-
-  const sortPath = sort('path')
-  const sortTime = sort('time')
-  const sortTotal = sort('totalTime')
+      setExplain(prevExplain => {
+        return prevExplain.slice().sort((a, b) => {
+          return (
+            localOrder *
+            `${a[fieldName]}`.localeCompare(`${b[fieldName]}`, undefined, {
+              numeric: fieldName !== 'path'
+            })
+          )
+        })
+      })
+    }
+  }, [])
 
   const changePathOrder = useCallback(() => {
     if (pathOrder !== 0) {
@@ -100,16 +96,25 @@ export const useExplain = () => {
   }, [totalOrder])
 
   useEffect(() => {
-    sortPath(pathOrder)
-  }, [pathOrder, sortPath])
+    if (pathOrder) {
+      const sortPath = sort('path')
+      sortPath(pathOrder)
+    }
+  }, [pathOrder, sort])
 
   useEffect(() => {
-    sortTime(timeOrder)
-  }, [timeOrder, sortTime])
+    if (timeOrder) {
+      const sortTime = sort('time')
+      sortTime(timeOrder)
+    }
+  }, [timeOrder, sort])
 
   useEffect(() => {
-    sortTotal(totalOrder)
-  }, [totalOrder, sortTotal])
+    if (totalOrder) {
+      const sortTotal = sort('totalTime')
+      sortTotal(totalOrder)
+    }
+  }, [totalOrder, sort])
 
   // TODO: Find way to proper estimate the thresholds below
   const timeThresholdMs = 100
