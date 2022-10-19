@@ -51,9 +51,9 @@ export function Content() {
   ])
 
   return (
-    <div className={styles.height100}>
+    <div className={styles.container}>
       <input type="text" onChange={searchByPath} placeholder="Search by path" />
-      <table className={styles.width100}>
+      <table className={styles.explainData}>
         <thead>
           <tr>
             {tableHeaders.map(({ onClick, order, label, alignmentLeft }) => (
@@ -61,7 +61,9 @@ export function Content() {
                 key={label}
                 onClick={onClick}
                 className={`${styles.th} ${
-                  alignmentLeft ? styles.textAlignLeft : styles.textAlignRight
+                  alignmentLeft
+                    ? styles.tableCellAlignLeft
+                    : styles.tableCellAlignRight
                 }`}
               >
                 <div
@@ -96,16 +98,14 @@ export function Content() {
                 <tr key={path}>
                   <td>{path}</td>
                   <td
-                    className={`${
-                      styles.textAlignRight
-                    } ${getOverThresholdStyles(timeMs, timeThresholdMs)}`}
+                    className={`${styles.tableCellAlignRight} 
+                    ${getOverThresholdStyles(timeMs, timeThresholdMs)}`}
                   >
                     {timeMs.toFixed(2)}
                   </td>
                   <td
-                    className={`${
-                      styles.textAlignRight
-                    } ${getOverThresholdStyles(totalTimeMs, totalThresholdMs)}`}
+                    className={`${styles.tableCellAlignRight} 
+                    ${getOverThresholdStyles(totalTimeMs, totalThresholdMs)}`}
                   >
                     {totalTimeMs.toFixed(2)}
                   </td>

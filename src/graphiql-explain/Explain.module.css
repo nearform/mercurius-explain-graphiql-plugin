@@ -2,11 +2,11 @@
   color: red;
 }
 
-.height100 {
+.container {
   height: 100%;
 }
 
-.width100 {
+.explainData {
   width: 100%;
 }
 
@@ -38,10 +38,10 @@
   justify-content: flex-end;
 }
 
-.textAlignLeft {
+.tableCellAlignLeft {
   text-align: left;
 }
 
-.textAlignRight {
+.tableCellAlignRight {
   text-align: right;
 }
