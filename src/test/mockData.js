@@ -71,6 +71,79 @@ export const data = {
   }
 }
 
+export const simplifiedData = {
+  data: {
+    users: [
+      {
+        name: 'Davide',
+        addresses: [
+          {
+            zip: '12345'
+          },
+          {
+            zip: '54321'
+          }
+        ],
+        status: {
+          enabled: true
+        }
+      },
+      {
+        name: 'Mario',
+        addresses: [
+          {
+            zip: '12345'
+          },
+          {
+            zip: '54321'
+          }
+        ],
+        status: {
+          enabled: true
+        }
+      }
+    ]
+  },
+  extensions: {
+    explain: {
+      profiler: {
+        data: [
+          {
+            path: 'users',
+            begin: 1,
+            end: 2,
+            time: 1
+          },
+          {
+            path: 'users.0.addresses',
+            begin: 3,
+            end: 4,
+            time: 1
+          },
+          {
+            path: 'users.1.addresses',
+            begin: 2,
+            end: 4,
+            time: 2
+          },
+          {
+            path: 'users.0.status',
+            begin: 2,
+            end: 3,
+            time: 1
+          },
+          {
+            path: 'users.1.status',
+            begin: 2,
+            end: 5,
+            time: 3
+          }
+        ]
+      }
+    }
+  }
+}
+
 export const gqlp = {
   operationName: '',
   query: `{
