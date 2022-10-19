@@ -1,31 +1,10 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useExplain } from './useExplain'
 import arrow from '../icons/arrow.svg'
+import styles from './Explain.module.css'
 
-const thStyle = {
-  margin: '0 5px 0 0',
-  padding: 0,
-  width: '33%'
-}
-
-const getThContentWrapperStyle = (alignLeft = true) => ({
-  display: 'flex',
-  justifyContent: alignLeft ? 'flex-start' : 'flex-end'
-})
-
-const getArrowStyleRotation = shouldRotate => ({
-  height: '20px',
-  margin: 0,
-  rotate: shouldRotate ? '180deg' : '0deg'
-})
-
-const tdStyles = {
-  textAlign: 'right'
-}
-
-const overThresholdStyle = {
-  color: 'red'
-}
+const getOverThresholdStyles = (value, threshold) =>
+  value > threshold ? styles.overThreshold : ''
 
 export function Content() {
   const {
@@ -40,11 +19,6 @@ export function Content() {
     timeThresholdMs,
     totalThresholdMs
   } = useExplain()
-
-  const getOverThresholdStyles = useCallback(
-    (value, threshold) => (value > threshold ? overThresholdStyle : null),
-    []
-  )
 
   const tableHeaders = React.useMemo(() => {
     return [
@@ -77,19 +51,36 @@ export function Content() {
   ])
 
   return (
-    <div style={{ height: '100%' }}>
+    <div className={styles.container}>
       <input type="text" onChange={searchByPath} placeholder="Search by path" />
-      <table style={{ width: '100%' }}>
+      <table className={styles.explainData}>
         <thead>
           <tr>
             {tableHeaders.map(({ onClick, order, label, alignmentLeft }) => (
-              <th key={label} onClick={onClick} style={thStyle}>
-                <div style={getThContentWrapperStyle(alignmentLeft)}>
+              <th
+                key={label}
+                onClick={onClick}
+                className={`${styles.th} ${
+                  alignmentLeft
+                    ? styles.tableCellAlignLeft
+                    : styles.tableCellAlignRight
+                }`}
+              >
+                <div
+                  className={`${styles.thContent}
+                    ${
+                      alignmentLeft
+                        ? styles.justifyFlexStart
+                        : styles.justifyFlexEnd
+                    }`}
+                >
                   <p>{label}</p>
                   {order !== 0 && (
                     <img
                       src={arrow}
-                      style={getArrowStyleRotation(order > 0)}
+                      className={`${styles.arrow} ${
+                        order > 0 ? styles.rotate180 : ''
+                      }`}
                       alt={`arrow-${order > 0 ? 'up' : 'down'}`}
                     />
                   )}
@@ -107,18 +98,14 @@ export function Content() {
                 <tr key={path}>
                   <td>{path}</td>
                   <td
-                    style={{
-                      ...getOverThresholdStyles(timeMs, timeThresholdMs),
-                      ...tdStyles
-                    }}
+                    className={`${styles.tableCellAlignRight} 
+                    ${getOverThresholdStyles(timeMs, timeThresholdMs)}`}
                   >
                     {timeMs.toFixed(2)}
                   </td>
                   <td
-                    style={{
-                      ...getOverThresholdStyles(totalTimeMs, totalThresholdMs),
-                      ...tdStyles
-                    }}
+                    className={`${styles.tableCellAlignRight} 
+                    ${getOverThresholdStyles(totalTimeMs, totalThresholdMs)}`}
                   >
                     {totalTimeMs.toFixed(2)}
                   </td>
