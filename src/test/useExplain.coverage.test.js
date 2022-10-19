@@ -33,44 +33,44 @@ describe('useExplain hook', () => {
         path: 'users',
         time: 1,
         totalBegin: 1,
-        totalEnd: 4,
-        totalTime: 3
-      },
-      {
-        begin: 2,
-        end: 4,
-        path: 'users.0.addresses',
-        time: 2,
-        totalBegin: 2,
-        totalEnd: 4,
-        totalTime: 2
+        totalEnd: 5,
+        totalTime: 4
       },
       {
         begin: 3,
         end: 4,
-        path: 'users.1.addresses',
+        path: 'users.0.addresses',
         time: 1,
         totalBegin: 3,
         totalEnd: 4,
         totalTime: 1
       },
       {
-        begin: 1,
-        end: 3,
-        path: 'users.0.status',
+        begin: 2,
+        end: 4,
+        path: 'users.1.addresses',
         time: 2,
-        totalBegin: 1,
-        totalEnd: 3,
+        totalBegin: 2,
+        totalEnd: 4,
         totalTime: 2
       },
       {
-        begin: 1,
-        end: 2,
-        path: 'users.1.status',
+        begin: 2,
+        end: 3,
+        path: 'users.0.status',
         time: 1,
-        totalBegin: 1,
-        totalEnd: 2,
+        totalBegin: 2,
+        totalEnd: 3,
         totalTime: 1
+      },
+      {
+        begin: 2,
+        end: 5,
+        path: 'users.1.status',
+        time: 3,
+        totalBegin: 2,
+        totalEnd: 5,
+        totalTime: 3
       }
     ])
   })
@@ -97,44 +97,44 @@ describe('useExplain hook', () => {
         path: 'users',
         time: 1,
         totalBegin: 1,
-        totalEnd: 4,
-        totalTime: 3
+        totalEnd: 5,
+        totalTime: 4
       },
       {
         begin: 3,
         end: 4,
-        path: 'users.1.addresses',
+        path: 'users.0.addresses',
         time: 1,
         totalBegin: 3,
         totalEnd: 4,
         totalTime: 1
       },
       {
-        begin: 1,
-        end: 2,
-        path: 'users.1.status',
+        begin: 2,
+        end: 3,
+        path: 'users.0.status',
         time: 1,
-        totalBegin: 1,
-        totalEnd: 2,
+        totalBegin: 2,
+        totalEnd: 3,
         totalTime: 1
       },
       {
         begin: 2,
         end: 4,
-        path: 'users.0.addresses',
+        path: 'users.1.addresses',
         time: 2,
         totalBegin: 2,
         totalEnd: 4,
         totalTime: 2
       },
       {
-        begin: 1,
-        end: 3,
-        path: 'users.0.status',
-        time: 2,
-        totalBegin: 1,
-        totalEnd: 3,
-        totalTime: 2
+        begin: 2,
+        end: 5,
+        path: 'users.1.status',
+        time: 3,
+        totalBegin: 2,
+        totalEnd: 5,
+        totalTime: 3
       }
     ])
   })
@@ -161,20 +161,20 @@ describe('useExplain hook', () => {
     expect(view.result.current.explain).toEqual([
       {
         begin: 2,
+        end: 5,
+        path: 'users.1.status',
+        time: 3,
+        totalBegin: 2,
+        totalEnd: 5,
+        totalTime: 3
+      },
+      {
+        begin: 2,
         end: 4,
-        path: 'users.0.addresses',
+        path: 'users.1.addresses',
         time: 2,
         totalBegin: 2,
         totalEnd: 4,
-        totalTime: 2
-      },
-      {
-        begin: 1,
-        end: 3,
-        path: 'users.0.status',
-        time: 2,
-        totalBegin: 1,
-        totalEnd: 3,
         totalTime: 2
       },
       {
@@ -183,25 +183,25 @@ describe('useExplain hook', () => {
         path: 'users',
         time: 1,
         totalBegin: 1,
-        totalEnd: 4,
-        totalTime: 3
+        totalEnd: 5,
+        totalTime: 4
       },
       {
         begin: 3,
         end: 4,
-        path: 'users.1.addresses',
+        path: 'users.0.addresses',
         time: 1,
         totalBegin: 3,
         totalEnd: 4,
         totalTime: 1
       },
       {
-        begin: 1,
-        end: 2,
-        path: 'users.1.status',
+        begin: 2,
+        end: 3,
+        path: 'users.0.status',
         time: 1,
-        totalBegin: 1,
-        totalEnd: 2,
+        totalBegin: 2,
+        totalEnd: 3,
         totalTime: 1
       }
     ])

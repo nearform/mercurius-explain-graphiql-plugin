@@ -116,27 +116,27 @@ export const simplifiedData = {
           },
           {
             path: 'users.0.addresses',
-            begin: 2,
-            end: 4,
-            time: 2
-          },
-          {
-            path: 'users.1.addresses',
             begin: 3,
             end: 4,
             time: 1
           },
           {
-            path: 'users.0.status',
-            begin: 1,
-            end: 3,
+            path: 'users.1.addresses',
+            begin: 2,
+            end: 4,
             time: 2
           },
           {
-            path: 'users.1.status',
-            begin: 1,
-            end: 2,
+            path: 'users.0.status',
+            begin: 2,
+            end: 3,
             time: 1
+          },
+          {
+            path: 'users.1.status',
+            begin: 2,
+            end: 5,
+            time: 3
           }
         ]
       }

@@ -43,49 +43,49 @@ describe('Check the utils functions', () => {
     const response = appendTotalsToExplainResponse(mockExplain)
     expect(response).toEqual([
       {
+        path: 'users',
         begin: 1,
         end: 2,
-        path: 'users',
         time: 1,
         totalBegin: 1,
-        totalEnd: 4,
-        totalTime: 3
+        totalEnd: 5,
+        totalTime: 4
       },
       {
-        begin: 2,
-        end: 4,
         path: 'users.0.addresses',
-        time: 2,
-        totalBegin: 2,
-        totalEnd: 4,
-        totalTime: 2
-      },
-      {
         begin: 3,
         end: 4,
-        path: 'users.1.addresses',
         time: 1,
         totalBegin: 3,
         totalEnd: 4,
         totalTime: 1
       },
       {
-        begin: 1,
-        end: 3,
-        path: 'users.0.status',
+        path: 'users.1.addresses',
+        begin: 2,
+        end: 4,
         time: 2,
-        totalBegin: 1,
-        totalEnd: 3,
+        totalBegin: 2,
+        totalEnd: 4,
         totalTime: 2
       },
       {
-        begin: 1,
-        end: 2,
-        path: 'users.1.status',
+        path: 'users.0.status',
+        begin: 2,
+        end: 3,
         time: 1,
-        totalBegin: 1,
-        totalEnd: 2,
+        totalBegin: 2,
+        totalEnd: 3,
         totalTime: 1
+      },
+      {
+        path: 'users.1.status',
+        begin: 2,
+        end: 5,
+        time: 3,
+        totalBegin: 2,
+        totalEnd: 5,
+        totalTime: 3
       }
     ])
   })
