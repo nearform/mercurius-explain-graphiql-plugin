@@ -33,7 +33,7 @@ const rollup = [
       resolve({
         extensions: ['.js', '.jsx']
       }),
-      svgr(),
+      svgr({ exportType: 'named', jsxRuntime: 'classic' }),
       postcss({ modules: true }),
       commonjs(),
       jsx({ factory: 'React.createElement' })
