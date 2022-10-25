@@ -1,6 +1,7 @@
 import React from 'react'
 import { useExplain } from './useExplain'
-import arrow from '../icons/arrow.svg'
+import { ReactComponent as ArrowIcon } from '../icons/arrow.svg'
+import { ReactComponent as StopwatchIcon } from '../icons/stopwatch.svg'
 import styles from './Explain.module.css'
 
 const getOverThresholdStyles = (value, threshold) =>
@@ -74,16 +75,16 @@ export function Content() {
                         : styles.justifyFlexEnd
                     }`}
                 >
-                  <p>{label}</p>
                   {order !== 0 && (
-                    <img
-                      src={arrow}
+                    <ArrowIcon
+                      fill="currentColor"
                       className={`${styles.arrow} ${
                         order > 0 ? styles.rotate180 : ''
                       }`}
                       alt={`arrow-${order > 0 ? 'up' : 'down'}`}
                     />
                   )}
+                  <p>{label}</p>
                 </div>
               </th>
             ))}
@@ -123,5 +124,5 @@ export function Content() {
   )
 }
 export function Icon() {
-  return <p>GE</p>
+  return <StopwatchIcon fill="currentColor" data-testid="plugin-icon" />
 }
