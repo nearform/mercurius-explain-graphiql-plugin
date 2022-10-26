@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { useResolverCalls } from '../hooks/useResolverCalls'
 import styles from './ResolverCalls.module.css'
@@ -31,7 +31,7 @@ export const ResolverCalls = () => {
   }, [pathOrder, changePathOrder, countOrder, changeCountOrder])
 
   return (
-    <>
+    <Fragment>
       <div className={styles.searchContainer}>
         <input
           className={styles.searchInput}
@@ -93,6 +93,6 @@ export const ResolverCalls = () => {
           )}
         </tbody>
       </table>
-    </>
+    </Fragment>
   )
 }

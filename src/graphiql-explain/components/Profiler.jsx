@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { useProfiler } from '../hooks/useProfiler'
 import styles from './Profiler.module.css'
@@ -52,7 +51,7 @@ export const Profiler = () => {
   ])
 
   return (
-    <>
+    <Fragment>
       <div className={styles.searchContainer}>
         <input
           className={styles.searchInput}
@@ -131,6 +130,6 @@ export const Profiler = () => {
           )}
         </tbody>
       </table>
-    </>
+    </Fragment>
   )
 }
