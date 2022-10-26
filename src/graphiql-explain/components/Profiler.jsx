@@ -1,15 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import { useExplain } from './useExplain'
-import { ReactComponent as ArrowIcon } from '../icons/arrow.svg'
-import { ReactComponent as StopwatchIcon } from '../icons/stopwatch.svg'
-import styles from './Explain.module.css'
+import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
+import { useProfiler } from '../hooks/useProfiler'
+import styles from './Profiler.module.css'
 
 const getOverThresholdStyles = (value, threshold) =>
   value > threshold ? styles.overThreshold : ''
 
-export function Content() {
+export const Profiler = () => {
   const {
-    explain,
+    profiler,
     searchByPath,
     changePathOrder,
     changeTimeOrder,
@@ -19,7 +19,7 @@ export function Content() {
     totalOrder,
     timeThresholdMs,
     totalThresholdMs
-  } = useExplain()
+  } = useProfiler()
 
   const tableHeaders = React.useMemo(() => {
     return [
@@ -52,8 +52,19 @@ export function Content() {
   ])
 
   return (
-    <div className={styles.container}>
-      <input type="text" onChange={searchByPath} placeholder="Search by path" />
+    <>
+      <div className={styles.searchContainer}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          onChange={searchByPath}
+          name="searchPath"
+          required
+        />
+        <label htmlFor="searchPath" className={styles.searchLabel}>
+          Search by path
+        </label>
+      </div>
       <table className={styles.explainData}>
         <thead>
           <tr>
@@ -69,11 +80,11 @@ export function Content() {
               >
                 <div
                   className={`${styles.thContent}
-                    ${
-                      alignmentLeft
-                        ? styles.justifyFlexStart
-                        : styles.justifyFlexEnd
-                    }`}
+                ${
+                  alignmentLeft
+                    ? styles.justifyFlexStart
+                    : styles.justifyFlexEnd
+                }`}
                 >
                   {order !== 0 && (
                     <ArrowIcon
@@ -91,8 +102,8 @@ export function Content() {
           </tr>
         </thead>
         <tbody>
-          {explain && explain.length > 0 ? (
-            explain.map(({ path, time, totalTime }) => {
+          {profiler && profiler.length > 0 ? (
+            profiler.map(({ path, time, totalTime }) => {
               const timeMs = time * 1e-6
               const totalTimeMs = totalTime * 1e-6
               return (
@@ -100,13 +111,13 @@ export function Content() {
                   <td>{path}</td>
                   <td
                     className={`${styles.tableCellAlignRight} 
-                    ${getOverThresholdStyles(timeMs, timeThresholdMs)}`}
+                ${getOverThresholdStyles(timeMs, timeThresholdMs)}`}
                   >
                     {timeMs.toFixed(2)}
                   </td>
                   <td
                     className={`${styles.tableCellAlignRight} 
-                    ${getOverThresholdStyles(totalTimeMs, totalThresholdMs)}`}
+                ${getOverThresholdStyles(totalTimeMs, totalThresholdMs)}`}
                   >
                     {totalTimeMs.toFixed(2)}
                   </td>
@@ -120,9 +131,6 @@ export function Content() {
           )}
         </tbody>
       </table>
-    </div>
+    </>
   )
-}
-export function Icon() {
-  return <StopwatchIcon fill="currentColor" data-testid="plugin-icon" />
 }

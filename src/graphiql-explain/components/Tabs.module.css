@@ -1,0 +1,24 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.currentTab {
+  background-color: #d4d4d4;
+  color: #6d6d6d;
+  border-radius: 3px;
+}
+
+.divider {
+  width: 100%;
+  margin: 15px 0;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px 0 2px 0;
+}

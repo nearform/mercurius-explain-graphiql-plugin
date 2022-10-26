@@ -1,4 +1,4 @@
-import { Content, Icon } from './Explain'
+import { Content, Icon } from './pages/Explain'
 
 export function graphiqlExplainPlugin() {
   return umdPlugin()

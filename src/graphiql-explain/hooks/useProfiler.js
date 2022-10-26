@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState, useMemo } from 'react'
-import { explainDataManager } from './ExplainDataManager'
-import { appendTotalsToExplainResponse } from './utils'
+import { explainDataManager } from '../ExplainDataManager'
+import { appendTotalsToExplainResponse } from '../utils'
 
-export const useExplain = () => {
-  const initialExplainData = useMemo(
-    () => appendTotalsToExplainResponse(explainDataManager.getExplainData()),
+export const useProfiler = () => {
+  const initialProfiler = useMemo(
+    () => appendTotalsToExplainResponse(explainDataManager.getProfilerData()),
     []
   )
-  const [explain, setExplain] = useState(initialExplainData)
-  const [defaultExplain, setDefaultExplain] = useState(initialExplainData)
+  const [profiler, setProfiler] = useState(initialProfiler)
+  const [defaultProfiler, setDefaultProfiler] = useState(initialProfiler)
   const [pathOrder, setPathOrder] = useState(0)
   const [timeOrder, setTimeOrder] = useState(0)
   const [totalOrder, setTotalOrder] = useState(0)
@@ -17,11 +17,11 @@ export const useExplain = () => {
     const eventListener = explainDataManager.addEventListener(
       'updateExplainData',
       (e, value) => {
-        const explainDataWithTotal = appendTotalsToExplainResponse(
-          e.target.explainData
+        const profilerDataWithTotal = appendTotalsToExplainResponse(
+          e.target.explainData.profiler
         )
-        setDefaultExplain(() => explainDataWithTotal || [])
-        setExplain(_ => explainDataWithTotal || [])
+        setDefaultProfiler(() => profilerDataWithTotal || [])
+        setProfiler(_ => profilerDataWithTotal || [])
       }
     )
     return () => {
@@ -32,14 +32,14 @@ export const useExplain = () => {
   const searchByField = useCallback(
     fieldName => {
       return event => {
-        setExplain(_ => {
-          return defaultExplain.filter(element => {
+        setProfiler(_ => {
+          return defaultProfiler.filter(element => {
             return element[fieldName].includes(event.target.value)
           })
         })
       }
     },
-    [defaultExplain]
+    [defaultProfiler]
   )
 
   const sort = useCallback((fieldName = 'path') => {
@@ -52,8 +52,8 @@ export const useExplain = () => {
       } else {
         localOrder = -1
       }
-      setExplain(prevExplain => {
-        return prevExplain.slice().sort((a, b) => {
+      setProfiler(prevProfiler => {
+        return prevProfiler.slice().sort((a, b) => {
           return (
             localOrder *
             `${a[fieldName]}`.localeCompare(`${b[fieldName]}`, undefined, {
@@ -121,7 +121,7 @@ export const useExplain = () => {
   const totalThresholdMs = 300
 
   return {
-    explain,
+    profiler,
     searchByPath: searchByField('path'),
     changePathOrder,
     changeTimeOrder,

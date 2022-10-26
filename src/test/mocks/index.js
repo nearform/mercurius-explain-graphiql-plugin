@@ -66,6 +66,19 @@ export const data = {
             time: 201551875
           }
         ]
+      },
+      resolverCalls: {
+        data: {
+          'Query.users': {
+            count: 1
+          },
+          'User.addresses': {
+            count: 2
+          },
+          'User.status': {
+            count: 2
+          }
+        }
       }
     }
   }
@@ -139,6 +152,19 @@ export const simplifiedData = {
             time: 3
           }
         ]
+      },
+      resolverCalls: {
+        data: {
+          'Query.users': {
+            count: 1
+          },
+          'User.addresses': {
+            count: 2
+          },
+          'User.status': {
+            count: 2
+          }
+        }
       }
     }
   }
