@@ -2,7 +2,6 @@ import { useResolverCalls } from '../graphiql-explain/hooks/useResolverCalls'
 import { act, renderHook } from '@testing-library/react'
 import { explainDataManager } from '../graphiql-explain/ExplainDataManager'
 import { data } from './mocks'
-import { resolverCallMapper } from '../graphiql-explain/utils'
 
 describe('useResolverCalls hook', () => {
   beforeAll(() => {
@@ -13,7 +12,7 @@ describe('useResolverCalls hook', () => {
     const view = renderHook(useResolverCalls)
 
     expect(view.result.current.resolverCalls).toHaveLength(0)
-    expect(view.result.current.pathOrder).toEqual(0)
+    expect(view.result.current.keyOrder).toEqual(0)
     expect(view.result.current.countOrder).toEqual(0)
   })
 
@@ -31,9 +30,9 @@ describe('useResolverCalls hook', () => {
 
     expect(view.result.current.resolverCalls).not.toHaveLength(0)
     expect(view.result.current.resolverCalls).toEqual([
-      { count: 1, path: 'Query.users' },
-      { count: 2, path: 'User.addresses' },
-      { count: 2, path: 'User.status' }
+      { count: 1, key: 'Query.users' },
+      { count: 2, key: 'User.addresses' },
+      { count: 2, key: 'User.status' }
     ])
   })
 
@@ -52,12 +51,12 @@ describe('useResolverCalls hook', () => {
     })
     view.rerender()
 
-    expect(view.result.current.pathOrder).toEqual(0)
+    expect(view.result.current.keyOrder).toEqual(0)
     expect(view.result.current.countOrder).toEqual(1)
     expect(view.result.current.resolverCalls).toEqual([
-      { count: 1, path: 'Query.users' },
-      { count: 2, path: 'User.addresses' },
-      { count: 2, path: 'User.status' }
+      { count: 1, key: 'Query.users' },
+      { count: 2, key: 'User.addresses' },
+      { count: 2, key: 'User.status' }
     ])
   })
 
@@ -82,41 +81,41 @@ describe('useResolverCalls hook', () => {
     view.rerender()
 
     expect(view.result.current.countOrder).toEqual(-1)
-    expect(view.result.current.pathOrder).toEqual(0)
+    expect(view.result.current.keyOrder).toEqual(0)
     expect(view.result.current.resolverCalls).toEqual([
-      { count: 2, path: 'User.addresses' },
-      { count: 2, path: 'User.status' },
-      { count: 1, path: 'Query.users' }
+      { count: 2, key: 'User.addresses' },
+      { count: 2, key: 'User.status' },
+      { count: 1, key: 'Query.users' }
     ])
   })
 
-  it("useResolverCalls should change the pathOrder to 1 if it's not set", () => {
+  it("useResolverCalls should change the keyOrder to 1 if it's not set", () => {
     const view = renderHook(useResolverCalls)
 
     act(() => {
-      view.result.current.changePathOrder()
+      view.result.current.changeKeyOrder()
     })
     view.rerender()
 
     expect(view.result.current.countOrder).toEqual(0)
-    expect(view.result.current.pathOrder).toEqual(1)
+    expect(view.result.current.keyOrder).toEqual(1)
   })
 
-  it("useResolverCalls should change the pathOrder to -1 if it's already set", () => {
+  it("useResolverCalls should change the keyOrder to -1 if it's already set", () => {
     const view = renderHook(useResolverCalls)
 
     act(() => {
-      view.result.current.changePathOrder()
+      view.result.current.changeKeyOrder()
     })
     view.rerender()
 
     act(() => {
-      view.result.current.changePathOrder()
+      view.result.current.changeKeyOrder()
     })
     view.rerender()
 
     expect(view.result.current.countOrder).toEqual(0)
-    expect(view.result.current.pathOrder).toEqual(-1)
+    expect(view.result.current.keyOrder).toEqual(-1)
   })
 
   it('useResolverCalls should filter the results by the searchQuery', () => {
@@ -130,17 +129,17 @@ describe('useResolverCalls hook', () => {
     view.rerender()
 
     act(() => {
-      view.result.current.searchByPath({ target: { value: '0' } })
+      view.result.current.searchByKey({ target: { value: '0' } })
     })
 
     expect(view.result.current.resolverCalls).toEqual(
-      resolverCallMapper(data.extensions.explain.resolverCalls.data).filter(e =>
-        e.path.includes('0.status')
+      data.extensions.explain.resolverCalls.data.filter(e =>
+        e.key.includes('0.status')
       )
     )
   })
 
-  it('useResolverCalls should return and empty array if the paths does not contain the search query', () => {
+  it('useResolverCalls should return and empty array if the keys does not contain the search query', () => {
     const view = renderHook(useResolverCalls)
 
     act(() => {
@@ -151,7 +150,7 @@ describe('useResolverCalls hook', () => {
     view.rerender()
 
     act(() => {
-      view.result.current.searchByPath({ target: { value: '------' } })
+      view.result.current.searchByKey({ target: { value: '------' } })
     })
     view.rerender()
 
@@ -169,7 +168,7 @@ describe('useResolverCalls hook', () => {
     view.rerender()
 
     act(() => {
-      view.result.current.searchByPath({ target: { value: '' } })
+      view.result.current.searchByKey({ target: { value: '' } })
     })
     view.rerender()
 

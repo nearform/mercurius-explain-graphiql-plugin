@@ -8,17 +8,17 @@ export const ResolverCalls = () => {
     resolverCalls,
     countOrder,
     changeCountOrder,
-    pathOrder,
-    changePathOrder,
-    searchByPath
+    keyOrder,
+    changeKeyOrder,
+    searchByKey
   } = useResolverCalls()
 
   const tableHeaders = useMemo(() => {
     return [
       {
-        label: 'Path',
-        order: pathOrder,
-        onClick: changePathOrder,
+        label: 'Key',
+        order: keyOrder,
+        onClick: changeKeyOrder,
         alignmentLeft: true
       },
       {
@@ -28,7 +28,7 @@ export const ResolverCalls = () => {
         alignmentLeft: false
       }
     ]
-  }, [pathOrder, changePathOrder, countOrder, changeCountOrder])
+  }, [keyOrder, changeKeyOrder, countOrder, changeCountOrder])
 
   return (
     <Fragment>
@@ -36,12 +36,12 @@ export const ResolverCalls = () => {
         <input
           className={styles.searchInput}
           type="text"
-          onChange={searchByPath}
-          name="searchPath"
+          onChange={searchByKey}
+          name="searchKey"
           required
         />
-        <label htmlFor="searchPath" className={styles.searchLabel}>
-          Search by path
+        <label htmlFor="searchKey" className={styles.searchLabel}>
+          Search by key
         </label>
       </div>
       <table className={styles.explainData}>
@@ -78,10 +78,10 @@ export const ResolverCalls = () => {
         </thead>
         <tbody>
           {resolverCalls && resolverCalls.length > 0 ? (
-            resolverCalls.map(({ path, count }) => {
+            resolverCalls.map(({ key, count }) => {
               return (
-                <tr key={path}>
-                  <td>{path}</td>
+                <tr key={key}>
+                  <td>{key}</td>
                   <td className={styles.tableCellAlignRight}>{count}</td>
                 </tr>
               )

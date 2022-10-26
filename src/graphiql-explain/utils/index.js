@@ -91,9 +91,3 @@ export function saveExplainResponse(data) {
 export function parseExplainResponse(data) {
   return saveExplainResponse(data)
 }
-
-export const resolverCallMapper = resolverCallObject => {
-  return Object.entries(resolverCallObject).map(([key, { count }]) => {
-    return { path: key, count }
-  })
-}

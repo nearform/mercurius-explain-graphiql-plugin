@@ -29,11 +29,13 @@ describe('Check the utils functions', () => {
   it('parseExplainResponse shoud call setExplain and delete explain', () => {
     const mockExplain = {
       profiler: [...mockData.extensions.explain.profiler.data],
-      resolverCalls: { ...mockData.extensions.explain.resolverCalls.data }
+      resolverCalls: [...mockData.extensions.explain.resolverCalls.data]
     }
 
     expect(mockData.extensions.explain.profiler.data.length).toBeGreaterThan(0)
-    expect(mockData.extensions.explain.resolverCalls.data).not.toStrictEqual({})
+    expect(
+      mockData.extensions.explain.resolverCalls.data.length
+    ).toBeGreaterThan(0)
 
     const response = parseExplainResponse(mockData)
 

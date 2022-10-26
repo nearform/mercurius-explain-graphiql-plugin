@@ -1,25 +1,22 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import explainDataManager from '../ExplainDataManager'
-import { resolverCallMapper } from '../utils'
 
 export const useResolverCalls = () => {
   const initialResolverCalls = useMemo(
-    () => resolverCallMapper(explainDataManager.getResolverCallsData()),
+    () => explainDataManager.getResolverCallsData(),
     []
   )
   const [resolverCalls, setResolverCalls] = useState(initialResolverCalls)
   const [defaultResolverCalls, setDefaultResolverCalls] =
     useState(initialResolverCalls)
-  const [pathOrder, setPathOrder] = useState(0)
+  const [keyOrder, setKeyOrder] = useState(0)
   const [countOrder, setCountOrder] = useState(0)
 
   useEffect(() => {
     const eventListener = explainDataManager.addEventListener(
       'updateExplainData',
       (e, value) => {
-        const resolverCalls = resolverCallMapper(
-          e.target.explainData.resolverCalls
-        )
+        const resolverCalls = e.target.explainData.resolverCalls
 
         setDefaultResolverCalls(() => resolverCalls || [])
         setResolverCalls(_ => resolverCalls || [])
@@ -43,7 +40,7 @@ export const useResolverCalls = () => {
     [defaultResolverCalls]
   )
 
-  const sort = useCallback((fieldName = 'path') => {
+  const sort = useCallback((fieldName = 'key') => {
     return order => {
       let localOrder = order
       if (!order || order === 0) {
@@ -58,7 +55,7 @@ export const useResolverCalls = () => {
           return (
             localOrder *
             `${a[fieldName]}`.localeCompare(`${b[fieldName]}`, undefined, {
-              numeric: fieldName !== 'path'
+              numeric: fieldName !== 'key'
             })
           )
         })
@@ -66,14 +63,14 @@ export const useResolverCalls = () => {
     }
   }, [])
 
-  const changePathOrder = useCallback(() => {
-    if (pathOrder !== 0) {
-      setPathOrder(prev => -prev)
+  const changeKeyOrder = useCallback(() => {
+    if (keyOrder !== 0) {
+      setKeyOrder(prev => -prev)
     } else {
-      setPathOrder(1)
+      setKeyOrder(1)
     }
     setCountOrder(0)
-  }, [pathOrder])
+  }, [keyOrder])
 
   const changeCountOrder = useCallback(() => {
     if (countOrder !== 0) {
@@ -81,15 +78,15 @@ export const useResolverCalls = () => {
     } else {
       setCountOrder(1)
     }
-    setPathOrder(0)
+    setKeyOrder(0)
   }, [countOrder])
 
   useEffect(() => {
-    if (pathOrder) {
-      const sortPath = sort('path')
-      sortPath(pathOrder)
+    if (keyOrder) {
+      const sortKey = sort('key')
+      sortKey(keyOrder)
     }
-  }, [pathOrder, sort])
+  }, [keyOrder, sort])
 
   useEffect(() => {
     if (countOrder) {
@@ -100,10 +97,10 @@ export const useResolverCalls = () => {
 
   return {
     resolverCalls,
-    searchByPath: searchByField('path'),
+    searchByKey: searchByField('key'),
     countOrder,
     changeCountOrder,
-    pathOrder,
-    changePathOrder
+    keyOrder,
+    changeKeyOrder
   }
 }

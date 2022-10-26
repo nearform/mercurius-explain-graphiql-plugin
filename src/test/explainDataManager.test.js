@@ -33,6 +33,6 @@ describe('Explain Data Manager', () => {
     const resolverCallData = explainDataManager.getResolverCallsData()
 
     expect(profilerData).toHaveLength(0)
-    expect(resolverCallData).toStrictEqual({})
+    expect(resolverCallData).toHaveLength(0)
   })
 })

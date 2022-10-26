@@ -13,7 +13,7 @@ class ExplainDataManager extends EventTarget {
   }
 
   getResolverCallsData() {
-    return this.explainData.resolverCalls || {}
+    return this.explainData.resolverCalls || []
   }
 
   setExplain(explainData) {

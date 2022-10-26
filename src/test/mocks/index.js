@@ -68,17 +68,20 @@ export const data = {
         ]
       },
       resolverCalls: {
-        data: {
-          'Query.users': {
+        data: [
+          {
+            key: 'Query.users',
             count: 1
           },
-          'User.addresses': {
+          {
+            key: 'User.addresses',
             count: 2
           },
-          'User.status': {
+          {
+            key: 'User.status',
             count: 2
           }
-        }
+        ]
       }
     }
   }
@@ -154,17 +157,20 @@ export const simplifiedData = {
         ]
       },
       resolverCalls: {
-        data: {
-          'Query.users': {
+        data: [
+          {
+            key: 'Query.users',
             count: 1
           },
-          'User.addresses': {
+          {
+            key: 'User.addresses',
             count: 2
           },
-          'User.status': {
+          {
+            key: 'User.status',
             count: 2
           }
-        }
+        ]
       }
     }
   }
