@@ -1,32 +1,37 @@
-import { useExplain } from '../graphiql-explain/useExplain'
+import { useProfiler } from '../graphiql-explain/hooks/useProfiler'
 import { act, renderHook } from '@testing-library/react'
 import { explainDataManager } from '../graphiql-explain/ExplainDataManager'
-import { data, simplifiedData } from './mockData'
+import { data, simplifiedData } from './mocks'
 import { appendTotalsToExplainResponse } from '../graphiql-explain/utils'
 
-describe('useExplain hook', () => {
+describe('useProfiler hook', () => {
   beforeAll(() => {
     jest.resetAllMocks()
   })
-  it('useExplain hook init', () => {
-    const view = renderHook(useExplain)
-    expect(view.result.current.explain).toHaveLength(0)
+
+  it('useProfiler hook init', () => {
+    const view = renderHook(useProfiler)
+
+    expect(view.result.current.profiler).toHaveLength(0)
     expect(view.result.current.pathOrder).toEqual(0)
     expect(view.result.current.timeOrder).toEqual(0)
     expect(view.result.current.totalOrder).toEqual(0)
   })
 
-  it('useExplain hook change value', () => {
-    const view = renderHook(useExplain)
-    expect(view.result.current.explain).toHaveLength(0)
+  it('useProfiler hook change value', () => {
+    const view = renderHook(useProfiler)
+
+    expect(view.result.current.profiler).toHaveLength(0)
+
     act(() => {
-      explainDataManager.setExplain(
-        simplifiedData.extensions.explain.profiler.data
-      )
+      explainDataManager.setExplain({
+        profiler: simplifiedData.extensions.explain.profiler.data
+      })
     })
     view.rerender()
-    expect(view.result.current.explain).not.toHaveLength(0)
-    expect(view.result.current.explain).toEqual([
+
+    expect(view.result.current.profiler).not.toHaveLength(0)
+    expect(view.result.current.profiler).toEqual([
       {
         begin: 1,
         end: 2,
@@ -75,22 +80,25 @@ describe('useExplain hook', () => {
     ])
   })
 
-  it("useExplain should change the timeOrder to 1 if it's not set", () => {
-    const view = renderHook(useExplain)
+  it("useProfiler should change the timeOrder to 1 if it's not set", () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
-      explainDataManager.setExplain(
-        simplifiedData.extensions.explain.profiler.data
-      )
+      explainDataManager.setExplain({
+        profiler: simplifiedData.extensions.explain.profiler.data
+      })
     })
     view.rerender()
+
     act(() => {
       view.result.current.changeTimeOrder()
     })
     view.rerender()
+
     expect(view.result.current.timeOrder).toEqual(1)
     expect(view.result.current.pathOrder).toEqual(0)
     expect(view.result.current.totalOrder).toEqual(0)
-    expect(view.result.current.explain).toEqual([
+    expect(view.result.current.profiler).toEqual([
       {
         begin: 1,
         end: 2,
@@ -139,26 +147,30 @@ describe('useExplain hook', () => {
     ])
   })
 
-  it("useExplain should change the timeOrder to -1 if it's already set", () => {
-    const view = renderHook(useExplain)
+  it("useProfiler should change the timeOrder to -1 if it's already set", () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
-      explainDataManager.setExplain(
-        simplifiedData.extensions.explain.profiler.data
-      )
+      explainDataManager.setExplain({
+        profiler: simplifiedData.extensions.explain.profiler.data
+      })
     })
     view.rerender()
-    act(() => {
-      view.result.current.changeTimeOrder()
-    })
-    view.rerender()
+
     act(() => {
       view.result.current.changeTimeOrder()
     })
     view.rerender()
+
+    act(() => {
+      view.result.current.changeTimeOrder()
+    })
+    view.rerender()
+
     expect(view.result.current.timeOrder).toEqual(-1)
     expect(view.result.current.pathOrder).toEqual(0)
     expect(view.result.current.totalOrder).toEqual(0)
-    expect(view.result.current.explain).toEqual([
+    expect(view.result.current.profiler).toEqual([
       {
         begin: 2,
         end: 5,
@@ -207,103 +219,124 @@ describe('useExplain hook', () => {
     ])
   })
 
-  it("useExplain should change the pathOrder to 1 if it's not set", () => {
-    const view = renderHook(useExplain)
+  it("useProfiler should change the pathOrder to 1 if it's not set", () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
       view.result.current.changePathOrder()
     })
     view.rerender()
-    view.rerender()
+
     expect(view.result.current.timeOrder).toEqual(0)
     expect(view.result.current.totalOrder).toEqual(0)
     expect(view.result.current.pathOrder).toEqual(1)
   })
 
-  it("useExplain should change the pathOrder to -1 if it's already set", () => {
-    const view = renderHook(useExplain)
+  it("useProfiler should change the pathOrder to -1 if it's already set", () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
       view.result.current.changePathOrder()
     })
     view.rerender()
+
     act(() => {
       view.result.current.changePathOrder()
     })
     view.rerender()
+
     expect(view.result.current.totalOrder).toEqual(0)
     expect(view.result.current.timeOrder).toEqual(0)
     expect(view.result.current.pathOrder).toEqual(-1)
   })
 
-  it("useExplain should change the totalOrder to 1 if it's not set", () => {
-    const view = renderHook(useExplain)
+  it("useProfiler should change the totalOrder to 1 if it's not set", () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
       view.result.current.changeTotalOrder()
     })
     view.rerender()
-    view.rerender()
+
     expect(view.result.current.timeOrder).toEqual(0)
     expect(view.result.current.totalOrder).toEqual(1)
     expect(view.result.current.pathOrder).toEqual(0)
   })
 
-  it("useExplain should change the totalOrder to -1 if it's already set", () => {
-    const view = renderHook(useExplain)
+  it("useProfiler should change the totalOrder to -1 if it's already set", () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
       view.result.current.changeTotalOrder()
     })
     view.rerender()
+
     act(() => {
       view.result.current.changeTotalOrder()
     })
     view.rerender()
+
     expect(view.result.current.totalOrder).toEqual(-1)
     expect(view.result.current.timeOrder).toEqual(0)
     expect(view.result.current.pathOrder).toEqual(0)
   })
 
-  it('useExplain should filter the results by the searchQuery', () => {
-    const view = renderHook(useExplain)
+  it('useProfiler should filter the results by the searchQuery', () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
-      explainDataManager.setExplain(
-        data.extensions.explain.profiler.data.filter(e =>
+      explainDataManager.setExplain({
+        profiler: data.extensions.explain.profiler.data.filter(e =>
           e.path.includes('status')
         )
-      )
+      })
     })
     view.rerender()
+
     act(() => {
       view.result.current.searchByPath({ target: { value: '0' } })
     })
-    expect(view.result.current.explain).toEqual(
+
+    expect(view.result.current.profiler).toEqual(
       appendTotalsToExplainResponse(
         data.extensions.explain.profiler.data
       ).filter(e => e.path.includes('0.status'))
     )
   })
 
-  it('useExplain should return and empty array if the paths does not contain the search query', () => {
-    const view = renderHook(useExplain)
+  it('useProfiler should return and empty array if the paths does not contain the search query', () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
-      explainDataManager.setExplain(data.extensions.explain.profiler.data)
+      explainDataManager.setExplain({
+        profiler: data.extensions.explain.profiler.data
+      })
     })
     view.rerender()
+
     act(() => {
       view.result.current.searchByPath({ target: { value: '------' } })
     })
     view.rerender()
-    expect(view.result.current.explain).toHaveLength(0)
+
+    expect(view.result.current.profiler).toHaveLength(0)
   })
 
-  it('useExplain should return the initial array if the search query is empty', () => {
-    const view = renderHook(useExplain)
+  it('useProfiler should return the initial array if the search query is empty', () => {
+    const view = renderHook(useProfiler)
+
     act(() => {
-      explainDataManager.setExplain(data.extensions.explain.profiler.data)
+      explainDataManager.setExplain({
+        profiler: data.extensions.explain.profiler.data
+      })
     })
     view.rerender()
+
     act(() => {
       view.result.current.searchByPath({ target: { value: '' } })
     })
     view.rerender()
-    expect(view.result.current.explain).toHaveLength(5)
+
+    expect(view.result.current.profiler).toHaveLength(5)
   })
 })

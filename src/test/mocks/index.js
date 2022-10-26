@@ -66,6 +66,22 @@ export const data = {
             time: 201551875
           }
         ]
+      },
+      resolverCalls: {
+        data: [
+          {
+            key: 'Query.users',
+            count: 1
+          },
+          {
+            key: 'User.addresses',
+            count: 2
+          },
+          {
+            key: 'User.status',
+            count: 2
+          }
+        ]
       }
     }
   }
@@ -137,6 +153,22 @@ export const simplifiedData = {
             begin: 2,
             end: 5,
             time: 3
+          }
+        ]
+      },
+      resolverCalls: {
+        data: [
+          {
+            key: 'Query.users',
+            count: 1
+          },
+          {
+            key: 'User.addresses',
+            count: 2
+          },
+          {
+            key: 'User.status',
+            count: 2
           }
         ]
       }

@@ -1,4 +1,4 @@
-import { explainDataManager } from './ExplainDataManager'
+import { explainDataManager } from '../ExplainDataManager'
 
 function plainToTree(data) {
   const tree = {
@@ -79,8 +79,11 @@ export function appendTotalsToExplainResponse(originalData) {
 export function saveExplainResponse(data) {
   const { explain } = data.extensions || {}
 
-  if (explain && explain.profiler.data) {
-    explainDataManager.setExplain(explain.profiler.data)
+  if (explain && explain.profiler.data && explain.resolverCalls.data) {
+    explainDataManager.setExplain({
+      profiler: explain.profiler.data,
+      resolverCalls: explain.resolverCalls.data
+    })
   }
   return data
 }
