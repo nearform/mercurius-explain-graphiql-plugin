@@ -7,6 +7,7 @@ a plugin that exports execution info related to a graphql query:
 * number of calls per resolver
 
 ![alt text](docs/profiler.jpeg 'Profiler View')
+
 ![alt text](docs/resolverCalls.jpeg 'Resolver Calls View')
 
 Check the `mercurius-explain` [Github Repo](https://github.com/nearform/mercurius-explain) for detailed information.
