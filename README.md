@@ -225,7 +225,7 @@ export default App
 
 ### graphiqlExplainPlugin
 
-The plugin component. Should be added to the GraphiQL component in the `plugins` list
+The plugin component should be added to the GraphiQL component in the `plugins` list
 
 ```
 <GraphiQL fetcher={fetcher} plugins={[graphiqlExplainPlugin()]}/>
