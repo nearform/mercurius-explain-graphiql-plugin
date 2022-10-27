@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { tabs } from '../hooks/useTabs'
+import { tabs } from '../constants/tabs'
 import styles from './Tabs.module.css'
 
 export const Tabs = ({ handleTabClick, currentTab }) => {

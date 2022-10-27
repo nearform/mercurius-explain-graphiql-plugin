@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react'
+import { getColorByLimit } from '../constants/thresholds'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { useProfiler } from '../hooks/useProfiler'
 import styles from './Profiler.module.css'
-
-const getOverThresholdStyles = (value, threshold) =>
-  value > threshold ? styles.overThreshold : ''
 
 export const Profiler = () => {
   const {
@@ -16,8 +14,7 @@ export const Profiler = () => {
     timeOrder,
     pathOrder,
     totalOrder,
-    timeThresholdMs,
-    totalThresholdMs
+    max
   } = useProfiler()
 
   const tableHeaders = React.useMemo(() => {
@@ -109,14 +106,18 @@ export const Profiler = () => {
                 <tr key={path}>
                   <td>{path}</td>
                   <td
-                    className={`${styles.tableCellAlignRight} 
-                ${getOverThresholdStyles(timeMs, timeThresholdMs)}`}
+                    style={{
+                      color: getColorByLimit(time / max.time)
+                    }}
+                    className={styles.tableCellAlignRight}
                   >
                     {timeMs.toFixed(2)}
                   </td>
                   <td
-                    className={`${styles.tableCellAlignRight} 
-                ${getOverThresholdStyles(totalTimeMs, totalThresholdMs)}`}
+                    style={{
+                      color: getColorByLimit(totalTime / max.totalTime)
+                    }}
+                    className={styles.tableCellAlignRight}
                   >
                     {totalTimeMs.toFixed(2)}
                   </td>
