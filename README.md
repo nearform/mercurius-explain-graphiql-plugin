@@ -6,11 +6,32 @@ a plugin that exports execution info related to a graphql query:
 * profiling of resolvers execution time
 * number of calls per resolver
 
-![alt text](docs/profiler.jpeg 'Profiler View')
+![alt text](docs/profiler.png 'Profiler View')
 
-![alt text](docs/resolverCalls.jpeg 'Resolver Calls View')
+![alt text](docs/resolverCalls.png 'Resolver Calls View')
 
 Check the `mercurius-explain` [Github Repo](https://github.com/nearform/mercurius-explain) for detailed information.
+
+### Profiler Details
+
+**Calculations**
+
+Data from the Mercurius Explain goes through some calculations to display accurately the behaviour of a query or mutation.
+Time, as an exemple, is defined by the temporal cost of the resolver operation of a specific type or property, from start to end.
+This can be misleading as one property may have to call other resolvers to retrieve the needed data. Therefore, we append totals that take in consideration the end of the furthest child node that composes its resolution.
+This is visible in the [first image of this README](#mercurius-explain-graphiql-plugin) with the root path, Users. It takes a minimum amount of time to resolve Users but the total time is always going to be the highest, because all the other types and properties should be resolved for us to consider it complete.
+
+**Thresholds**
+
+The results of the profiler are coloured to demonstrate the relative duration of each property of a path
+in relation to the maximum value of the corresponding property, i.e. Time, Total Time.
+We are going to support custom intervals settings, however, at the moment we are displaying the data according to the percentage groups:
+
+- 0% to 49% - White (default)
+- 50% to 69% - Light Yellow
+- 70% to 89% - Yellow
+- 90% - 98% - Orange
+- +99% - Red
 
 ## Quick start
 
