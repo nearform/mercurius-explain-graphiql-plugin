@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { getColorByLimit } from '../constants/thresholds'
+import { getColorByLimit } from '../utils'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { useProfiler } from '../hooks/useProfiler'
 import styles from './Profiler.module.css'

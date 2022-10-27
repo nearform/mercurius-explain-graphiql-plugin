@@ -1,4 +1,5 @@
 import { explainDataManager } from '../ExplainDataManager'
+import { colors, reverseThresholds } from '../constants/thresholds'
 
 function plainToTree(data) {
   const tree = {
@@ -90,4 +91,14 @@ export function saveExplainResponse(data) {
 
 export function parseExplainResponse(data) {
   return saveExplainResponse(data)
+}
+
+export function getColorByLimit(maxLimit) {
+  const currentThreshold = reverseThresholds.find(
+    ({ limit }) => maxLimit >= limit
+  )
+  if (currentThreshold) {
+    return currentThreshold.color
+  }
+  return colors.white
 }

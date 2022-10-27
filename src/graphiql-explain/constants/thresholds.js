@@ -1,30 +1,28 @@
-export const thresholds = [
+export const colors = {
+  yellowLight: '#ECE75F',
+  yellow: '#FFFF00',
+  orange: '#FFA500',
+  red: '#FF0000',
+  white: '#FFFFFF'
+}
+
+const thresholds = [
   {
     limit: 0.5,
-    color: '#ece75f'
+    color: colors.yellowLight
   },
   {
     limit: 0.7,
-    color: '#FFFF00'
+    color: colors.yellow
   },
   {
     limit: 0.9,
-    color: '#FFA500'
+    color: colors.orange
   },
   {
     limit: 0.99,
-    color: '#FF0000'
+    color: colors.red
   }
 ]
 
-const reverseThresholds = thresholds.slice().reverse()
-
-export function getColorByLimit(maxLimit) {
-  const currentThreshold = reverseThresholds.find(
-    ({ limit }) => maxLimit >= limit
-  )
-  if (currentThreshold) {
-    return currentThreshold.color
-  }
-  return '#FFF'
-}
+export const reverseThresholds = thresholds.reverse()
