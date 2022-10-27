@@ -12,6 +12,25 @@ export const useProfiler = () => {
   const [pathOrder, setPathOrder] = useState(0)
   const [timeOrder, setTimeOrder] = useState(0)
   const [totalOrder, setTotalOrder] = useState(0)
+  const [max, setMax] = useState({ time: 0, totalTime: 0 })
+
+  useEffect(() => {
+    setMax(
+      defaultProfiler.reduce(
+        (acc, curr) => {
+          if (curr.time > acc.time) {
+            acc.time = curr.time
+          }
+          if (curr.totalTime > acc.totalTime) {
+            acc.totalTime = curr.totalTime
+          }
+
+          return acc
+        },
+        { time: 0, totalTime: 0 }
+      )
+    )
+  }, [defaultProfiler])
 
   useEffect(() => {
     const eventListener = explainDataManager.addEventListener(
@@ -116,10 +135,6 @@ export const useProfiler = () => {
     }
   }, [totalOrder, sort])
 
-  // TODO: Find way to proper estimate the thresholds below
-  const timeThresholdMs = 100
-  const totalThresholdMs = 300
-
   return {
     profiler,
     searchByPath: searchByField('path'),
@@ -129,7 +144,6 @@ export const useProfiler = () => {
     timeOrder,
     pathOrder,
     totalOrder,
-    timeThresholdMs,
-    totalThresholdMs
+    max
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs } from '../components/Tabs'
-import { useTabs, tabs } from '../hooks/useTabs'
+import { useTabs } from '../hooks/useTabs'
+import { tabs } from '../constants/tabs'
 import { ReactComponent as StopwatchIcon } from '../../icons/stopwatch.svg'
 import styles from './Explain.module.css'
 

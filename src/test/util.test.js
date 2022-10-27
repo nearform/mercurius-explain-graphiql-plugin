@@ -1,17 +1,21 @@
 import {
   saveExplainResponse,
   parseExplainResponse,
-  appendTotalsToExplainResponse
+  appendTotalsToExplainResponse,
+  getColorByLimit
 } from '../graphiql-explain/utils'
 import { explainDataManager } from '../graphiql-explain/ExplainDataManager'
 import { data, simplifiedData } from './mocks'
+import { colors } from '../graphiql-explain/constants/thresholds'
 
 let mockData
+let mockSimplifiedData
 
 const mockSetExplain = jest.spyOn(explainDataManager, 'setExplain')
 beforeEach(() => {
   jest.resetAllMocks()
   mockData = JSON.parse(JSON.stringify(data))
+  mockSimplifiedData = JSON.parse(JSON.stringify(simplifiedData))
 })
 
 describe('Check the utils functions', () => {
@@ -45,7 +49,6 @@ describe('Check the utils functions', () => {
   })
 
   it('appendTotalsToExplainResponse should add totals for each path of explain', () => {
-    const mockSimplifiedData = JSON.parse(JSON.stringify(simplifiedData))
     const mockExplain = [...mockSimplifiedData.extensions.explain.profiler.data]
     const response = appendTotalsToExplainResponse(mockExplain)
 
@@ -94,6 +97,58 @@ describe('Check the utils functions', () => {
         totalBegin: 2,
         totalEnd: 5,
         totalTime: 3
+      }
+    ])
+  })
+
+  it('getColorByLimit should return proper color based on threshold', () => {
+    const mockExplain = [...mockSimplifiedData.extensions.explain.profiler.data]
+    const response = appendTotalsToExplainResponse(mockExplain)
+
+    const timeMax = Math.max(...response.map(datum => datum.time))
+    const totalTimeMax = Math.max(...response.map(datum => datum.totalTime))
+
+    const simplifiedDataColored = response.map(({ path, time, totalTime }) => {
+      const timeRatio = time / timeMax
+      const totalTimeRatio = totalTime / totalTimeMax
+      return {
+        path,
+        time: {
+          threshold: timeRatio,
+          color: getColorByLimit(timeRatio)
+        },
+        totalTime: {
+          threshold: totalTimeRatio,
+          color: getColorByLimit(totalTimeRatio)
+        }
+      }
+    })
+
+    expect(simplifiedDataColored).toEqual([
+      {
+        path: 'users',
+        totalTime: { color: colors.red, threshold: 1 },
+        time: { color: colors.white, threshold: 0.3333333333333333 }
+      },
+      {
+        path: 'users.0.addresses',
+        totalTime: { color: colors.white, threshold: 0.25 },
+        time: { color: colors.white, threshold: 0.3333333333333333 }
+      },
+      {
+        path: 'users.1.addresses',
+        totalTime: { color: colors.yellowLight, threshold: 0.5 },
+        time: { color: colors.yellowLight, threshold: 0.6666666666666666 }
+      },
+      {
+        path: 'users.0.status',
+        totalTime: { color: colors.white, threshold: 0.25 },
+        time: { color: colors.white, threshold: 0.3333333333333333 }
+      },
+      {
+        path: 'users.1.status',
+        totalTime: { color: colors.yellow, threshold: 0.75 },
+        time: { color: colors.red, threshold: 1 }
       }
     ])
   })
