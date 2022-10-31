@@ -1,27 +1,27 @@
 export const colors = {
-  yellowLight: '#ECE75F',
-  yellow: '#FFFF00',
-  orange: '#FFA500',
-  red: '#FF0000',
-  white: '#FFFFFF'
+  low: 'rgb(219 175 53)',
+  medium: '#FFA500',
+  high: 'rgb(255 78 78)',
+  veryHigh: '#FF0000',
+  default: 'inherit'
 }
 
 const thresholds = [
   {
     limit: 0.5,
-    color: colors.yellowLight
+    color: colors.low
   },
   {
     limit: 0.7,
-    color: colors.yellow
+    color: colors.medium
   },
   {
     limit: 0.9,
-    color: colors.orange
+    color: colors.high
   },
   {
     limit: 0.99,
-    color: colors.red
+    color: colors.veryHigh
   }
 ]
 

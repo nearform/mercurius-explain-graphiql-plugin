@@ -127,28 +127,28 @@ describe('Check the utils functions', () => {
     expect(simplifiedDataColored).toEqual([
       {
         path: 'users',
-        totalTime: { color: colors.red, threshold: 1 },
-        time: { color: colors.white, threshold: 0.3333333333333333 }
+        totalTime: { color: colors.veryHigh, threshold: 1 },
+        time: { color: colors.default, threshold: 0.3333333333333333 }
       },
       {
         path: 'users.0.addresses',
-        totalTime: { color: colors.white, threshold: 0.25 },
-        time: { color: colors.white, threshold: 0.3333333333333333 }
+        totalTime: { color: colors.default, threshold: 0.25 },
+        time: { color: colors.default, threshold: 0.3333333333333333 }
       },
       {
         path: 'users.1.addresses',
-        totalTime: { color: colors.yellowLight, threshold: 0.5 },
-        time: { color: colors.yellowLight, threshold: 0.6666666666666666 }
+        totalTime: { color: colors.low, threshold: 0.5 },
+        time: { color: colors.low, threshold: 0.6666666666666666 }
       },
       {
         path: 'users.0.status',
-        totalTime: { color: colors.white, threshold: 0.25 },
-        time: { color: colors.white, threshold: 0.3333333333333333 }
+        totalTime: { color: colors.default, threshold: 0.25 },
+        time: { color: colors.default, threshold: 0.3333333333333333 }
       },
       {
         path: 'users.1.status',
-        totalTime: { color: colors.yellow, threshold: 0.75 },
-        time: { color: colors.red, threshold: 1 }
+        totalTime: { color: colors.medium, threshold: 0.75 },
+        time: { color: colors.veryHigh, threshold: 1 }
       }
     ])
   })

@@ -100,5 +100,5 @@ export function getColorByLimit(maxLimit) {
   if (currentThreshold) {
     return currentThreshold.color
   }
-  return colors.white
+  return colors.default
 }
