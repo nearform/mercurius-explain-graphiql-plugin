@@ -2,7 +2,7 @@ import React from 'react'
 import { GraphiQL } from 'graphiql'
 import { createGraphiQLFetcher } from '@graphiql/toolkit'
 
-import { graphiqlExplainPlugin, parseExplainResponse } from './graphiql-explain'
+import { graphiqlExplainPlugin, parseFetchResponse } from './graphiql-explain'
 import { fetcherWrapper } from './fetcherWrapper'
 
 import 'graphiql/graphiql.css'
@@ -13,7 +13,7 @@ function App() {
     url: 'http://localhost:3001/graphql'
   })
 
-  const fetch = fetcherWrapper(fetcher, [parseExplainResponse])
+  const fetch = fetcherWrapper(fetcher, [parseFetchResponse])
   return (
     <div
       style={{

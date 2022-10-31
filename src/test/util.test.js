@@ -1,6 +1,6 @@
 import {
   saveExplainResponse,
-  parseExplainResponse,
+  parseFetchResponse,
   appendTotalsToExplainResponse,
   getColorByLimit
 } from '../graphiql-explain/utils'
@@ -30,7 +30,7 @@ describe('Check the utils functions', () => {
     })
   })
 
-  it('parseExplainResponse shoud call setExplain and delete explain', () => {
+  it('parseFetchResponse shoud call setExplain and delete explain', () => {
     const mockExplain = {
       profiler: [...mockData.extensions.explain.profiler.data],
       resolverCalls: [...mockData.extensions.explain.resolverCalls.data]
@@ -41,7 +41,7 @@ describe('Check the utils functions', () => {
       mockData.extensions.explain.resolverCalls.data.length
     ).toBeGreaterThan(0)
 
-    const response = parseExplainResponse(mockData)
+    const response = parseFetchResponse(mockData)
 
     expect(response).toEqual(mockData)
     expect(mockSetExplain).toBeCalledTimes(1)

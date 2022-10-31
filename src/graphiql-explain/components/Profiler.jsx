@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { getColorByLimit } from '../utils'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { useProfiler } from '../hooks/useProfiler'
@@ -48,7 +48,7 @@ export const Profiler = () => {
   ])
 
   return (
-    <Fragment>
+    <>
       <div className={styles.searchContainer}>
         <input
           className={styles.searchInput}
@@ -131,6 +131,6 @@ export const Profiler = () => {
           )}
         </tbody>
       </table>
-    </Fragment>
+    </>
   )
 }
