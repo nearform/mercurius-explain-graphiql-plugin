@@ -161,7 +161,7 @@ Import the plugin
 ```javascript
 ...
 import { fetcherReturnToPromise } from '@graphiql/toolkit'
-import { graphiqlExplainPlugin, parseExplainResponse } from 'mercurius-explain-graphiql-plugin'
+import { graphiqlExplainPlugin, parseFetchResponse } from 'mercurius-explain-graphiql-plugin'
 ...
 
 ```
@@ -185,7 +185,7 @@ and wrap the fetcher before add it to the GraphiQL component
 ```javascript
 const fetcher = fetcherWrapper(createGraphiQLFetcher({
   url: 'http://localhost:3001/graphql'
-}), [parseExplainResponse])
+}), [parseFetchResponse])
 ```
 
 > NOTE: This operation is required because GraphiQL does not provide an easy access to the result of the query, 
@@ -209,7 +209,7 @@ import { createGraphiQLFetcher, fetcherReturnToPromise } from '@graphiql/toolkit
 import 'graphiql/graphiql.css'
 import '@graphiql/react/dist/style.css'
 
-import { graphiqlExplainPlugin, parseExplainResponse } from 'mercurius-explain-graphiql-plugin'
+import { graphiqlExplainPlugin, parseFetchResponse } from 'mercurius-explain-graphiql-plugin'
 
 export const fetcherWrapper = (fetcher, cbs = []) => {
   return async (gqlp, fetchOpt) => {
@@ -224,7 +224,7 @@ export const fetcherWrapper = (fetcher, cbs = []) => {
 function App() {
   const fetcher = fetcherWrapper(createGraphiQLFetcher({
     url: 'http://localhost:3001/graphql'
-  }), [parseExplainResponse])
+  }), [parseFetchResponse])
 
   return (
     <div
@@ -254,7 +254,7 @@ The plugin component should be added to the GraphiQL component in the `plugins` 
 <GraphiQL fetcher={fetcher} plugins={[graphiqlExplainPlugin()]}/>
 ```
 
-### parseExplainResponse
+### parseFetchResponse
 
 A function that extract the `explain` data from the query response.
 It should be passed to the `fetcherWrapper`.
@@ -272,5 +272,5 @@ export const fetcherWrapper = (fetcher, cbs = []) => {
 
 const fetcher = fetcherWrapper(createGraphiQLFetcher({
   url: 'http://localhost:3001/graphql'
-}), [parseExplainResponse])
+}), [parseFetchResponse])
 ```
