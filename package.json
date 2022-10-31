@@ -1,13 +1,15 @@
 {
   "name": "mercurius-explain-graphiql-plugin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "This is the graphiql plugin for mercurius-explain plugin for mercurius.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nearform/mercurius-explain-graphiql-plugin.git"
   },
   "homepage": "/",
-  "keywords": ["mercurius"],
+  "keywords": [
+    "mercurius"
+  ],
   "author": "Davide Fiorello <davide@codeflyer.com>",
   "license": "ISC",
   "bugs": {
