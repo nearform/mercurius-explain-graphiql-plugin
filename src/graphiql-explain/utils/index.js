@@ -89,7 +89,7 @@ export function saveExplainResponse(data) {
   return data
 }
 
-export function parseExplainResponse(data) {
+export function parseFetchResponse(data) {
   return saveExplainResponse(data)
 }
 

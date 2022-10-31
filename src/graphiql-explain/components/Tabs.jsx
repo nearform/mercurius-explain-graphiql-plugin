@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { tabs } from '../constants/tabs'
 import styles from './Tabs.module.css'
 
 export const Tabs = ({ handleTabClick, currentTab }) => {
   return (
-    <Fragment>
+    <>
       <nav className={styles.nav}>
         {Object.entries(tabs).map(([key, value]) => {
           return (
@@ -23,6 +23,6 @@ export const Tabs = ({ handleTabClick, currentTab }) => {
         })}
       </nav>
       <div className={styles.divider} />
-    </Fragment>
+    </>
   )
 }
