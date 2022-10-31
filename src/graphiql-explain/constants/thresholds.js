@@ -1,8 +1,8 @@
 export const colors = {
   low: 'rgb(219 175 53)',
-  medium: '#FFA500',
+  medium: 'rgb(255 165 0)',
   high: 'rgb(255 78 78)',
-  veryHigh: '#FF0000',
+  veryHigh: 'rgb(255 0 0)',
   default: 'inherit'
 }
 
