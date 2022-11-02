@@ -9,6 +9,7 @@ import {
   stack
 } from 'd3'
 import { Tooltip } from './Tooltip'
+import { useWindowSize } from '../hooks/useWindowResize'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import styles from './WaterfallChart.module.css'
 import tooltipStyles from './Tooltip.module.css'
@@ -42,7 +43,12 @@ const normalize = (data, minBegin) => {
   }))
 }
 
+const getFormattedNumber = numberMs => {
+  return `${format(`0.3f`)(numberMs)} ms`
+}
+
 export const WaterfallChart = ({ data, limits, filters }) => {
+  const { width: windowInnerWidth = window.innerWidth } = useWindowSize()
   const chartRef = useRef(null)
   const marginChartRef = useRef(null)
   const xAxisRef = useRef(null)
@@ -58,16 +64,20 @@ export const WaterfallChart = ({ data, limits, filters }) => {
       ]
     )
 
-    return {
-      dimensions: { width: window.innerWidth * 0.8, height: data.length * 30 },
-      margins: {
-        top: 50,
-        right: 60,
-        left: marginLeft,
-        bottom: 30
-      }
+    const margins = {
+      top: 50,
+      right: 60,
+      left: marginLeft,
+      bottom: 30
     }
-  }, [data, limits])
+    return {
+      dimensions: {
+        width: windowInnerWidth * 0.8,
+        height: data.length * 30 + margins.top + margins.bottom
+      },
+      margins
+    }
+  }, [data, limits, windowInnerWidth])
 
   const innerWidth = dimensions.width - margins.left - margins.right
   const innerHeight = dimensions.height - margins.top - margins.bottom
@@ -103,7 +113,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
     xAxisGroup
       .call(
         axisTop(xScale)
-          .tickFormat(x => `${format('0.1f')(x * 1e-6)} ms`)
+          .tickFormat(x => getFormattedNumber(x * 1e-6))
           .tickSize(-innerHeight - 15)
           .tickPadding(10)
       )
@@ -162,9 +172,9 @@ export const WaterfallChart = ({ data, limits, filters }) => {
             .select(`.${tooltipStyles.content}`)
             .append('span')
             .html(
-              `${colorLegend[key].label} - ${format('0.2f')(
+              `${colorLegend[key].label} - ${getFormattedNumber(
                 d.data[key] * 1e-6
-              )} ms</br>`
+              )}</br>`
             )
         })
       })
