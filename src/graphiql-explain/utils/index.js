@@ -94,11 +94,8 @@ export function parseFetchResponse(data) {
 }
 
 export function getColorByLimit(maxLimit) {
-  const currentThreshold = reverseThresholds.find(
-    ({ limit }) => maxLimit >= limit
+  return (
+    reverseThresholds.find(({ limit }) => maxLimit >= limit)?.color ||
+    colors.default
   )
-  if (currentThreshold) {
-    return currentThreshold.color
-  }
-  return colors.default
 }
