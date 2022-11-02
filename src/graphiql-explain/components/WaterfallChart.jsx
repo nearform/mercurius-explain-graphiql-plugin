@@ -50,8 +50,6 @@ export const WaterfallChart = ({ data, limits, filters }) => {
   const dataRef = useRef(null)
   const toolTipRef = useRef(null)
 
-  console.log('limi', limits)
-
   const { dimensions, margins } = useMemo(() => {
     const marginLeft = Math.min(
       ...[
@@ -219,7 +217,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
         </div>
       </div>
 
-      <svg ref={chartRef}>
+      <svg ref={chartRef} data-testid="waterfall-chart">
         <g ref={marginChartRef}>
           <g ref={xAxisRef} />
           <g ref={yAxisRef} />

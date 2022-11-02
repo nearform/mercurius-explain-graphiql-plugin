@@ -79,6 +79,7 @@ export const Profiler = () => {
           <div
             className={styles.chartIconContainer}
             onClick={() => setIsModalOpen(true)}
+            data-testid="open-profiler-waterfall-chart"
           >
             <ChartIcon fill="currentColor" className={styles.chartIcon} />
           </div>

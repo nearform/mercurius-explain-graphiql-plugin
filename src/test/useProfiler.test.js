@@ -339,4 +339,22 @@ describe('useProfiler hook', () => {
 
     expect(view.result.current.profiler).toHaveLength(5)
   })
+
+  it('useProfiler should return the limits', () => {
+    const view = renderHook(useProfiler)
+
+    act(() => {
+      explainDataManager.setExplain({
+        profiler: simplifiedData.extensions.explain.profiler.data
+      })
+    })
+    view.rerender()
+
+    expect(view.result.current.limits).toStrictEqual({
+      pathLength: 17,
+      time: 3,
+      totalBegin: 1,
+      totalTime: 4
+    })
+  })
 })

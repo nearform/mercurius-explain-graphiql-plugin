@@ -88,7 +88,14 @@
     ]
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(css)$": "babel-jest",
+      "\\.svg": "<rootDir>/src/test/mocks/svg.js"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!d3|d3-array|internmap|delaunator|robust-predicates)"
+    ]
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
