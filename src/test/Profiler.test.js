@@ -15,7 +15,7 @@ describe('Profiler Waterfall View', () => {
     })
   })
 
-  it('should not display view opener icon if  profielr data is not available', () => {
+  it('should not display view opener icon if  profiler data is not available', () => {
     const { rerender } = render(<Profiler />)
     act(() => {
       explainDataManager.setExplain({
@@ -32,7 +32,7 @@ describe('Profiler Waterfall View', () => {
     expect(chartIconContainer).not.toBeInTheDocument()
   })
 
-  it('should display view opener icon if data is availavle', () => {
+  it('should display view opener icon if data is available', () => {
     render(<Profiler />)
 
     const chartIconContainer = screen.queryByTestId(
