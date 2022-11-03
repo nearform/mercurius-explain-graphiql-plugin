@@ -99,3 +99,22 @@ export function getColorByLimit(maxLimit) {
     colors.default
   )
 }
+
+export const textShortener = (text, maxCharacters, separator = '...') => {
+  if (text.length < maxCharacters) {
+    return text
+  }
+
+  const charactersToBeRemoved = text.length - maxCharacters + separator.length
+
+  const initialString = text.substring(
+    0,
+    Math.floor((text.length - charactersToBeRemoved) / 2)
+  )
+
+  const finalString = text.substring(
+    initialString.length + charactersToBeRemoved
+  )
+
+  return initialString + separator + finalString
+}

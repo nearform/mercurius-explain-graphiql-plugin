@@ -13,6 +13,7 @@ import { useWindowSize } from '../hooks/useWindowResize'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import styles from './WaterfallChart.module.css'
 import tooltipStyles from './Tooltip.module.css'
+import { textShortener } from '../utils/index'
 
 const BAR_SPACING = 7
 const CHARACTER_WIDTH_MONO_SIZE_12 = 7.204
@@ -56,14 +57,10 @@ export const WaterfallChart = ({ data, limits, filters }) => {
   const dataRef = useRef(null)
   const toolTipRef = useRef(null)
 
-  const { dimensions, margins } = useMemo(() => {
-    const marginLeft = Math.min(
-      ...[
-        CHARACTER_WIDTH_MONO_SIZE_12 * limits.pathLength + 15,
-        MAX_MARGIN_LEFT
-      ]
-    )
+  const neededMarginLeft = CHARACTER_WIDTH_MONO_SIZE_12 * limits.pathLength + 15
+  const marginLeft = Math.min(...[neededMarginLeft, MAX_MARGIN_LEFT])
 
+  const { dimensions, margins } = useMemo(() => {
     const margins = {
       top: 50,
       right: 60,
@@ -77,7 +74,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
       },
       margins
     }
-  }, [data, limits, windowInnerWidth])
+  }, [data, windowInnerWidth, marginLeft])
 
   const innerWidth = dimensions.width - margins.left - margins.right
   const innerHeight = dimensions.height - margins.top - margins.bottom
@@ -88,11 +85,13 @@ export const WaterfallChart = ({ data, limits, filters }) => {
     .nice()
 
   const yScale = scaleBand()
-    .domain(data.map(datum => datum.path))
+    .domain(data.map(({ path }) => path))
     .range([0, innerHeight])
     .paddingInner(0.1)
 
   useEffect(() => {
+    const maxCharactersToDisplay =
+      Math.floor(marginLeft / CHARACTER_WIDTH_MONO_SIZE_12) - 1
     let tooltip = select(toolTipRef.current)
     select(chartRef.current)
       .attr('width', dimensions.width)
@@ -101,7 +100,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
     select(marginChartRef.current)
       .attr('transform', `translate(${margins.left},${margins.top})`)
       .selectAll('text')
-      .attr('color', '#000')
+      .attr('fill', '#000')
 
     const xAxisGroup = select(xAxisRef.current)
     xAxisGroup
@@ -126,6 +125,10 @@ export const WaterfallChart = ({ data, limits, filters }) => {
     yAxisGroup
       .call(axisLeft(yScale))
       .selectAll('text')
+      .each(function (text) {
+        const shortenedPath = textShortener(text, maxCharactersToDisplay)
+        select(this).text(shortenedPath)
+      })
       .attr('font-size', 12)
       .attr('font-family', 'monospace')
       .select('.domain')
@@ -186,7 +189,16 @@ export const WaterfallChart = ({ data, limits, filters }) => {
         tooltip.style('left', `${clientX}px`)
         tooltip.style('top', `${clientY}px`)
       })
-  }, [data, xScale, yScale, innerHeight, dimensions, limits, margins])
+  }, [
+    data,
+    xScale,
+    yScale,
+    innerHeight,
+    dimensions,
+    limits,
+    margins,
+    marginLeft
+  ])
 
   return (
     <>
@@ -197,7 +209,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
               <div
                 key={label}
                 onClick={onClick}
-                className={styles.subheaderContainer}
+                className={`${styles.subheaderContainer} ${styles.pointer}`}
               >
                 {order !== 0 && (
                   <ArrowIcon

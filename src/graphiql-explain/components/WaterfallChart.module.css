@@ -40,3 +40,7 @@
 .chartTitle {
   color: black;
 }
+
+.pointer {
+  cursor: pointer;
+}

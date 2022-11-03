@@ -2,7 +2,8 @@ import {
   saveExplainResponse,
   parseFetchResponse,
   appendTotalsToExplainResponse,
-  getColorByLimit
+  getColorByLimit,
+  textShortener
 } from '../graphiql-explain/utils'
 import { explainDataManager } from '../graphiql-explain/ExplainDataManager'
 import { data, simplifiedData } from './mocks'
@@ -151,5 +152,14 @@ describe('Check the utils functions', () => {
         time: { color: colors.veryHigh, threshold: 1 }
       }
     ])
+  })
+
+  it('should shorten text if necessary', () => {
+    expect(textShortener('graphiql', 10)).toBe('graphiql')
+    expect(textShortener('graphiql-mercurius-explain', 5)).toBe('g...n')
+    expect(textShortener('this.is.mercurius.explain', 10)).toBe('thi...lain')
+    expect(textShortener('this.is.mercurius.explain', 10, '?????')).toBe(
+      'th?????ain'
+    )
   })
 })
