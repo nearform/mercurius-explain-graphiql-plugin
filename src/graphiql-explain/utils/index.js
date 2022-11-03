@@ -94,11 +94,27 @@ export function parseFetchResponse(data) {
 }
 
 export function getColorByLimit(maxLimit) {
-  const currentThreshold = reverseThresholds.find(
-    ({ limit }) => maxLimit >= limit
+  return (
+    reverseThresholds.find(({ limit }) => maxLimit >= limit)?.color ||
+    colors.default
   )
-  if (currentThreshold) {
-    return currentThreshold.color
+}
+
+export const textShortener = (text, maxCharacters, separator = '...') => {
+  if (text.length < maxCharacters) {
+    return text
   }
-  return colors.default
+
+  const charactersToBeRemoved = text.length - maxCharacters + separator.length
+
+  const initialString = text.substring(
+    0,
+    Math.floor((text.length - charactersToBeRemoved) / 2)
+  )
+
+  const finalString = text.substring(
+    initialString.length + charactersToBeRemoved
+  )
+
+  return initialString + separator + finalString
 }

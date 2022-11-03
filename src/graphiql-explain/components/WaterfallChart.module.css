@@ -1,0 +1,46 @@
+.arrow {
+  height: 20px;
+  margin: 0;
+}
+
+.rotate180 {
+  rotate: 180deg;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subheadersContainer {
+  min-width: 15%;
+}
+
+.subheaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: fit-content;
+}
+
+.subheaderLabel {
+  font-size: 10;
+  margin: 3px;
+  color: black;
+}
+
+.colorSquare {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+.chartTitle {
+  color: black;
+}
+
+.pointer {
+  cursor: pointer;
+}

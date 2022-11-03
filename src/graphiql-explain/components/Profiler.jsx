@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { getColorByLimit } from '../utils'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
+import { ReactComponent as ChartIcon } from '../../icons/chart.svg'
 import { useProfiler } from '../hooks/useProfiler'
 import styles from './Profiler.module.css'
+import { Modal } from './Modal'
+import { WaterfallChart } from './WaterfallChart'
 
 export const Profiler = () => {
   const {
@@ -14,8 +17,9 @@ export const Profiler = () => {
     timeOrder,
     pathOrder,
     totalOrder,
-    max
+    limits
   } = useProfiler()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const tableHeaders = React.useMemo(() => {
     return [
@@ -26,13 +30,13 @@ export const Profiler = () => {
         alignmentLeft: true
       },
       {
-        label: 'Time(ms)',
+        label: 'Time (ms)',
         order: timeOrder,
         onClick: changeTimeOrder,
         alignmentLeft: false
       },
       {
-        label: 'Total(ms)',
+        label: 'Total (ms)',
         order: totalOrder,
         onClick: changeTotalOrder,
         alignmentLeft: false
@@ -49,17 +53,37 @@ export const Profiler = () => {
 
   return (
     <>
-      <div className={styles.searchContainer}>
-        <input
-          className={styles.searchInput}
-          type="text"
-          onChange={searchByPath}
-          name="searchPath"
-          required
-        />
-        <label htmlFor="searchPath" className={styles.searchLabel}>
-          Search by path
-        </label>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+          <WaterfallChart
+            data={profiler}
+            filters={tableHeaders}
+            limits={limits}
+          />
+        </Modal>
+      )}
+      <div className={styles.headerContainer}>
+        <div className={styles.searchContainer}>
+          <input
+            className={styles.searchInput}
+            type="text"
+            onChange={searchByPath}
+            name="searchPath"
+            required
+          />
+          <label htmlFor="searchPath" className={styles.searchLabel}>
+            Search by path
+          </label>
+        </div>
+        {profiler && profiler.length > 0 ? (
+          <div
+            className={styles.chartIconContainer}
+            onClick={() => setIsModalOpen(true)}
+            data-testid="open-profiler-waterfall-chart"
+          >
+            <ChartIcon fill="currentColor" className={styles.chartIcon} />
+          </div>
+        ) : null}
       </div>
       <table className={styles.explainData}>
         <thead>
@@ -107,7 +131,7 @@ export const Profiler = () => {
                   <td>{path}</td>
                   <td
                     style={{
-                      color: getColorByLimit(time / max.time)
+                      color: getColorByLimit(time / limits.time)
                     }}
                     className={styles.tableCellAlignRight}
                   >
@@ -115,7 +139,7 @@ export const Profiler = () => {
                   </td>
                   <td
                     style={{
-                      color: getColorByLimit(totalTime / max.totalTime)
+                      color: getColorByLimit(totalTime / limits.totalTime)
                     }}
                     className={styles.tableCellAlignRight}
                   >

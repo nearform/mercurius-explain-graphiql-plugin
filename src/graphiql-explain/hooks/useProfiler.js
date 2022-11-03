@@ -12,10 +12,15 @@ export const useProfiler = () => {
   const [pathOrder, setPathOrder] = useState(0)
   const [timeOrder, setTimeOrder] = useState(0)
   const [totalOrder, setTotalOrder] = useState(0)
-  const [max, setMax] = useState({ time: 0, totalTime: 0 })
+  const [limits, setLimits] = useState({
+    time: 0,
+    totalTime: 0,
+    totalBegin: Number.MAX_VALUE,
+    pathLength: 0
+  })
 
   useEffect(() => {
-    setMax(
+    setLimits(
       defaultProfiler.reduce(
         (acc, curr) => {
           if (curr.time > acc.time) {
@@ -24,10 +29,16 @@ export const useProfiler = () => {
           if (curr.totalTime > acc.totalTime) {
             acc.totalTime = curr.totalTime
           }
+          if (curr.totalBegin < acc.totalBegin) {
+            acc.totalBegin = curr.totalBegin
+          }
+          if (curr.path.length > acc.pathLength) {
+            acc.pathLength = curr.path.length
+          }
 
           return acc
         },
-        { time: 0, totalTime: 0 }
+        { time: 0, totalTime: 0, totalBegin: Number.MAX_VALUE, pathLength: 0 }
       )
     )
   }, [defaultProfiler])
@@ -144,6 +155,6 @@ export const useProfiler = () => {
     timeOrder,
     pathOrder,
     totalOrder,
-    max
+    limits
   }
 }
