@@ -8,17 +8,18 @@
   padding: 8px 12px;
   font-size: 15px;
   margin-right: 10px;
+  color:  #3B4B68C2;
+  transition: color 0.3s;
 }
 
 .currentTab {
-  background-color: #d4d4d4;
-  color: #6d6d6d;
+  color: #3B4B68;
   border-radius: 3px;
 }
 
 .divider {
   width: 100%;
   margin: 15px 0;
-  border: 1px solid #d6d6d6;
+  border: 1px solid #3B4B6812;
   border-radius: 2px 0 2px 0;
 }

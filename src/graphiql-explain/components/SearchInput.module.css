@@ -1,0 +1,45 @@
+.explainData {
+  width: 100%;
+}
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.searchInput {
+  color: #000000;
+  padding: 5px;
+  border: none;
+  padding-left: 40px;
+  border-radius: 3px;
+  height: 40px;
+  width: 100%;
+  outline-color: #3B4B68C2;
+  background: #3B4B6812;
+}
+
+.searchInput:focus + label,
+.searchInput:valid + label {
+  font-size: 10px;
+  top: 0px;
+  left: 4px;
+}
+
+.searchLabel {
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 8px;
+  opacity: 0.5;
+  transition: font-size ease-out 0.1s;
+  cursor: pointer;
+}

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { getColorByLimit } from '../utils'
+import { getColorByLimit, getSymbolByLimit } from '../utils'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { ReactComponent as ChartIcon } from '../../icons/chart.svg'
 import { useProfiler } from '../hooks/useProfiler'
 import styles from './Profiler.module.css'
 import { Modal } from './Modal'
 import { WaterfallChart } from './WaterfallChart'
+import { SearchInput } from './SearchInput'
 
 export const Profiler = () => {
   const {
@@ -54,7 +55,11 @@ export const Profiler = () => {
   return (
     <>
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+        <Modal
+          isOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+          title="Profiler Waterfall View"
+        >
           <WaterfallChart
             data={profiler}
             filters={tableHeaders}
@@ -63,18 +68,7 @@ export const Profiler = () => {
         </Modal>
       )}
       <div className={styles.headerContainer}>
-        <div className={styles.searchContainer}>
-          <input
-            className={styles.searchInput}
-            type="text"
-            onChange={searchByPath}
-            name="searchPath"
-            required
-          />
-          <label htmlFor="searchPath" className={styles.searchLabel}>
-            Search by path
-          </label>
-        </div>
+        <SearchInput onChange={searchByPath} placeholder="Search by path" />
         {profiler && profiler.length > 0 ? (
           <div
             className={styles.chartIconContainer}
@@ -136,6 +130,7 @@ export const Profiler = () => {
                     className={styles.tableCellAlignRight}
                   >
                     {timeMs.toFixed(2)}
+                    {getSymbolByLimit(time / limits.time)}
                   </td>
                   <td
                     style={{
@@ -144,6 +139,7 @@ export const Profiler = () => {
                     className={styles.tableCellAlignRight}
                   >
                     {totalTimeMs.toFixed(2)}
+                    {getSymbolByLimit(totalTime / limits.totalTime)}
                   </td>
                 </tr>
               )

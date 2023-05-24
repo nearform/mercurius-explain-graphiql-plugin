@@ -8,37 +8,48 @@
 }
 
 .header {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 2px;
+}
+
+.legendsContainer {
   display: flex;
-  justify-content: space-between;
+  gap: 17px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.legendContainer {
+  display: flex;
   align-items: center;
+  flex-direction: row;
+
 }
 
 .subheadersContainer {
-  min-width: 15%;
+  display: flex;
+  gap: 17px;
+  margin-top: 16px;
 }
 
 .subheaderContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   height: fit-content;
+  flex-direction: row;
 }
 
 .subheaderLabel {
   font-size: 10;
-  margin: 3px;
-  color: black;
+  margin: 0;
 }
 
 .colorSquare {
   width: 20px;
   height: 20px;
-  border-radius: 3px;
-  margin-left: 10px;
-}
-
-.chartTitle {
-  color: black;
+  border-radius: 1px;
+  margin-right: 5px;
 }
 
 .pointer {
