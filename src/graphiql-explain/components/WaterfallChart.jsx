@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useMemo } from 'react'
 import {
+  selectAll,
   select,
   axisTop,
   scaleLinear,
   scaleBand,
-  axisLeft,
   format,
   stack
 } from 'd3'
@@ -13,7 +13,7 @@ import { useWindowSize } from '../hooks/useWindowResize'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import styles from './WaterfallChart.module.css'
 import tooltipStyles from './Tooltip.module.css'
-import { textShortener } from '../utils/index'
+import { isLight } from '../constants/thresholds'
 
 const BAR_SPACING = 15
 const CHARACTER_WIDTH_MONO_SIZE_12 = 7.204
@@ -62,10 +62,10 @@ export const WaterfallChart = ({ data, limits, filters }) => {
 
   const { dimensions, margins } = useMemo(() => {
     const margins = {
-      top: 25,
+      top: 23,
       right: 60,
       left: marginLeft,
-      bottom: 30
+      bottom: 10
     }
     return {
       dimensions: {
@@ -95,12 +95,10 @@ export const WaterfallChart = ({ data, limits, filters }) => {
       .attr('width', dimensions.width)
       .attr('height', dimensions.height)
 
-    const isLight = !!document.querySelectorAll('.graphiql-light').length
-
     select(marginChartRef.current)
       .attr('transform', `translate(${margins.left},${margins.top})`)
       .selectAll('text')
-      .attr('fill', isLight ? '#3B4B68' : '#B7C2D7')
+      .attr('fill', isLight() ? '#3B4B68' : '#B7C2D7')
 
     const xAxisGroup = select(xAxisRef.current)
 
@@ -111,10 +109,12 @@ export const WaterfallChart = ({ data, limits, filters }) => {
         .tickPadding(10)
     )
 
+    // .tickColor('#3B4B6812')
     const yAxisGroup = select(yAxisRef.current)
 
     yAxisGroup.select('.domain').attr('opacity', 0)
     xAxisGroup.select('.domain').attr('opacity', 0)
+    selectAll('line').attr('stroke', isLight() ? '#3B4B6812' : '#B7C2D712')
 
     const stackedData = dataToStack(normalize(data, limits.totalBegin))
 
@@ -126,6 +126,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
       .join('g')
       .attr('fill', ({ key }) => colorLegend[key].color)
       .attr('stroke', ({ key }) => colorLegend[key].borderColor)
+      .attr('transform', 'translate(0, 20)')
       .attr('stroke-width', '1px')
 
     const rect = barGroups
@@ -140,7 +141,7 @@ export const WaterfallChart = ({ data, limits, filters }) => {
       .attr('y', d => yScale(d.data.path))
       .attr('height', yScale.bandwidth() - BAR_SPACING)
       .attr('width', ([start, end]) => xScale(end) - xScale(start))
-      .attr('transform', `translate(2,${BAR_SPACING / 2})`)
+      .attr('transform', `translate(2,${BAR_SPACING / 2 - 12})`)
       .attr('pointer-events', 'all')
 
     rect

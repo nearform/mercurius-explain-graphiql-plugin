@@ -1,35 +1,41 @@
-import { ReactComponent as NegativeIndicator } from '../../icons/negative-indicator.svg'
-import { ReactComponent as PositiveIndicator } from '../../icons/positive-indicator.svg'
-import { ReactComponent as NeutralIndicator } from '../../icons/neutral-indicator.svg'
+import { NegativeIndicator } from '../../icons/negative-indicator'
+import { PositiveIndicator } from '../../icons/positive-indicator'
+import { NeutralIndicator } from '../../icons/neutral-indicator'
 
-export const colors = {
-  low: 'rgb(219 175 53)',
-  medium: 'rgb(255 165 0)',
-  high: 'rgb(255 78 78)',
-  veryHigh: 'rgb(255 0 0)',
+const lightColors = {
+  low: '#21835F',
+  medium: '#9E5F00',
+  high: '#D43408',
   default: 'inherit'
 }
+
+const darkColors = {
+  low: '#00D688',
+  medium: '#FFCC99',
+  high: '#FF5729',
+  default: 'inherit'
+}
+
+export const isLight = () =>
+  !!document.querySelectorAll('.graphiql-light').length
+
+export const colors = isLight() ? lightColors : darkColors
 
 const thresholds = [
   {
     limit: 0.5,
     color: colors.low,
-    symbol: <PositiveIndicator />
+    symbol: <PositiveIndicator color={colors.low} />
   },
   {
     limit: 0.7,
     color: colors.medium,
-    symbol: <NeutralIndicator />
+    symbol: <NeutralIndicator color={colors.medium} />
   },
   {
     limit: 0.9,
     color: colors.high,
-    symbol: <NegativeIndicator />
-  },
-  {
-    limit: 0.99,
-    color: colors.veryHigh,
-    symbol: <NegativeIndicator />
+    symbol: <NegativeIndicator color={colors.high} />
   }
 ]
 

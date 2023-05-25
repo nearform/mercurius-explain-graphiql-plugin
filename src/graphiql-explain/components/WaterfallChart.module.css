@@ -10,6 +10,7 @@
 .header {
   display: grid;
   grid-template-columns: repeat(3, minmax(120px, 1fr));
+  grid-auto-rows: 30px;
   gap: 2px;
 }
 
@@ -38,6 +39,7 @@
   align-items: center;
   height: fit-content;
   flex-direction: row;
+  cursor: pointer;
 }
 
 .subheaderLabel {

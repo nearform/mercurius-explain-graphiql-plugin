@@ -8,12 +8,12 @@
   padding: 8px 12px;
   font-size: 15px;
   margin-right: 10px;
-  color:  #3B4B68C2;
+  /* color:  #3B4B68C2; */
   transition: color 0.3s;
 }
 
 .currentTab {
-  color: #3B4B68;
+  /* color: #3B4B68; */
   border-radius: 3px;
 }
 
