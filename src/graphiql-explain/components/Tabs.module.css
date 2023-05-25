@@ -8,13 +8,21 @@
   padding: 8px 12px;
   font-size: 15px;
   margin-right: 10px;
-  /* color:  #3B4B68C2; */
   transition: color 0.3s;
+  color: #B7C2D7C2;
+}
+
+:global(.graphiql-light) .tab {
+  color: #3B4B68C2;
 }
 
 .currentTab {
-  /* color: #3B4B68; */
+  color: #B7C2D7;
   border-radius: 3px;
+}
+
+:global(.graphiql-light) .currentTab {
+  color: #3B4B68;
 }
 
 .divider {
