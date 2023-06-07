@@ -8,17 +8,26 @@
   padding: 8px 12px;
   font-size: 15px;
   margin-right: 10px;
+  transition: color 0.3s;
+  color: #B7C2D7C2;
+}
+
+:global(.graphiql-light) .tab {
+  color: #3B4B68C2;
 }
 
 .currentTab {
-  background-color: #d4d4d4;
-  color: #6d6d6d;
+  color: #B7C2D7;
   border-radius: 3px;
+}
+
+:global(.graphiql-light) .currentTab {
+  color: #3B4B68;
 }
 
 .divider {
   width: 100%;
   margin: 15px 0;
-  border: 1px solid #d6d6d6;
+  border: 1px solid #3B4B6812;
   border-radius: 2px 0 2px 0;
 }

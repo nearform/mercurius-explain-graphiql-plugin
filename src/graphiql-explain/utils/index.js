@@ -100,6 +100,11 @@ export function getColorByLimit(maxLimit) {
   )
 }
 
+export function getSymbolByLimit(maxLimit) {
+  const threshold =  reverseThresholds.find(({ limit }) => maxLimit >= limit)
+  return threshold?.symbol
+}
+
 export const textShortener = (text, maxCharacters, separator = '...') => {
   if (text.length < maxCharacters) {
     return text

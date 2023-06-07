@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import { useResolverCalls } from '../hooks/useResolverCalls'
 import styles from './ResolverCalls.module.css'
+import { SearchInput } from './SearchInput'
 
 export const ResolverCalls = () => {
   const {
@@ -33,16 +34,11 @@ export const ResolverCalls = () => {
   return (
     <>
       <div className={styles.searchContainer}>
-        <input
-          className={styles.searchInput}
-          type="text"
+        <SearchInput
           onChange={searchByKey}
           name="searchKey"
-          required
+          placeholder="Search by key"
         />
-        <label htmlFor="searchKey" className={styles.searchLabel}>
-          Search by key
-        </label>
       </div>
       <table className={styles.explainData}>
         <thead>

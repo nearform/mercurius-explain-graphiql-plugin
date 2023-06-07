@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useMemo } from 'react'
 import {
+  selectAll,
   select,
   axisTop,
   scaleLinear,
   scaleBand,
-  axisLeft,
   format,
   stack
 } from 'd3'
@@ -13,22 +13,22 @@ import { useWindowSize } from '../hooks/useWindowResize'
 import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
 import styles from './WaterfallChart.module.css'
 import tooltipStyles from './Tooltip.module.css'
-import { textShortener } from '../utils/index'
+import { isLight } from '../constants/thresholds'
 
-const BAR_SPACING = 7
+const BAR_SPACING = 15
 const CHARACTER_WIDTH_MONO_SIZE_12 = 7.204
 const MAX_MARGIN_LEFT = 230
 
 const colorLegend = {
   time: {
-    color: '#1f990f',
-    borderColor: '#1f990f',
+    color: '#2BAB7C',
+    borderColor: '#2BAB7C',
     label: 'Time'
   },
   totalTime: {
-    color: '#3058d1',
-    borderColor: '#3058d1',
-    label: 'Total Time'
+    color: '#007DEB',
+    borderColor: '#007DEB',
+    label: 'Total'
   }
 }
 
@@ -62,14 +62,14 @@ export const WaterfallChart = ({ data, limits, filters }) => {
 
   const { dimensions, margins } = useMemo(() => {
     const margins = {
-      top: 50,
+      top: 23,
       right: 60,
       left: marginLeft,
-      bottom: 30
+      bottom: 10
     }
     return {
       dimensions: {
-        width: windowInnerWidth * 0.8,
+        width: windowInnerWidth * 0.6,
         height: data.length * 30 + margins.top + margins.bottom
       },
       margins
@@ -90,8 +90,6 @@ export const WaterfallChart = ({ data, limits, filters }) => {
     .paddingInner(0.1)
 
   useEffect(() => {
-    const maxCharactersToDisplay =
-      Math.floor(marginLeft / CHARACTER_WIDTH_MONO_SIZE_12) - 1
     let tooltip = select(toolTipRef.current)
     select(chartRef.current)
       .attr('width', dimensions.width)
@@ -100,39 +98,23 @@ export const WaterfallChart = ({ data, limits, filters }) => {
     select(marginChartRef.current)
       .attr('transform', `translate(${margins.left},${margins.top})`)
       .selectAll('text')
-      .attr('fill', '#000')
+      .attr('fill', isLight() ? '#3B4B68' : '#B7C2D7')
 
     const xAxisGroup = select(xAxisRef.current)
-    xAxisGroup
-      .selectAll('line')
-      .attr('transform', `translate(0,-5)`)
-      .attr('stroke-width', '0.5px')
-      .attr('stroke', '#000')
-    xAxisGroup.selectAll('.domain').attr('stroke', '#000')
-    xAxisGroup
-      .call(
-        axisTop(xScale)
-          .tickFormat(x => getFormattedNumber(x * 1e-6))
-          .tickSize(-innerHeight - 15)
-          .tickPadding(10)
-      )
-      .selectAll('text')
-      .attr('transform', 'rotate(-30) translate(15, -1)')
 
+    xAxisGroup.call(
+      axisTop(xScale)
+        .tickFormat(x => getFormattedNumber(x * 1e-6))
+        .tickSize(-400)
+        .tickPadding(10)
+    )
+
+    // .tickColor('#3B4B6812')
     const yAxisGroup = select(yAxisRef.current)
-    yAxisGroup.selectAll('.domain').attr('stroke', '#000')
-    yAxisGroup.selectAll('line').attr('stroke', '#000')
-    yAxisGroup
-      .call(axisLeft(yScale))
-      .selectAll('text')
-      .each(function (text) {
-        const shortenedPath = textShortener(text, maxCharactersToDisplay)
-        select(this).text(shortenedPath)
-      })
-      .attr('font-size', 12)
-      .attr('font-family', 'monospace')
-      .select('.domain')
-      .attr('stroke', '#000')
+
+    yAxisGroup.select('.domain').attr('opacity', 0)
+    xAxisGroup.select('.domain').attr('opacity', 0)
+    selectAll('line').attr('stroke', isLight() ? '#3B4B6812' : '#B7C2D712')
 
     const stackedData = dataToStack(normalize(data, limits.totalBegin))
 
@@ -144,26 +126,26 @@ export const WaterfallChart = ({ data, limits, filters }) => {
       .join('g')
       .attr('fill', ({ key }) => colorLegend[key].color)
       .attr('stroke', ({ key }) => colorLegend[key].borderColor)
+      .attr('transform', 'translate(0, 20)')
       .attr('stroke-width', '1px')
 
     const rect = barGroups
       .selectAll('rect')
       .data(d => d)
       .join('rect')
+      .attr('rx', 0)
 
     rect
       .transition()
-      .attr('rx', 3)
       .attr('x', d => xScale(d.data.relativeBegin))
       .attr('y', d => yScale(d.data.path))
       .attr('height', yScale.bandwidth() - BAR_SPACING)
       .attr('width', ([start, end]) => xScale(end) - xScale(start))
-      .attr('transform', `translate(2,${BAR_SPACING / 2})`)
+      .attr('transform', `translate(2,${BAR_SPACING / 2 - 12})`)
       .attr('pointer-events', 'all')
 
     rect
       .on('mouseover', function (_, d) {
-        select(this).style('opacity', 0.7)
         tooltip.style('opacity', 1)
         tooltip.select(`.${tooltipStyles.content}`).text('')
         tooltip
@@ -202,8 +184,19 @@ export const WaterfallChart = ({ data, limits, filters }) => {
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.subheadersContainer}>
+      <div className={styles.legendsContainer}>
+        {Object.values(colorLegend).map(({ color, label }) => (
+          <div key={label} className={styles.legendContainer}>
+            <div
+              className={styles.colorSquare}
+              style={{ backgroundColor: color }}
+            />
+            <p className={styles.subheaderLabel}>{label}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex' }}>
+        <div className={styles.header}>
           {filters.map(({ onClick, order, label }) => {
             return (
               <div
@@ -224,29 +217,42 @@ export const WaterfallChart = ({ data, limits, filters }) => {
               </div>
             )
           })}
+          {data.map(({ path, time, totalTime }) => {
+            return (
+              <React.Fragment key={`${totalTime}-${path}`}>
+                <div
+                  className={`${styles.subheaderContainer} ${styles.pointer}`}
+                >
+                  <p className={styles.subheaderLabel}>{path}</p>
+                </div>
+                <div
+                  className={`${styles.subheaderContainer} ${styles.pointer}`}
+                >
+                  <p className={styles.subheaderLabel}>
+                    {(time * 1e-6).toFixed(3)}
+                  </p>
+                </div>
+                <div
+                  className={`${styles.subheaderContainer} ${styles.pointer}`}
+                >
+                  <p className={styles.subheaderLabel}>
+                    {(totalTime * 1e-6).toFixed(3)}
+                  </p>
+                </div>
+              </React.Fragment>
+            )
+          })}
         </div>
-        <h3 className={styles.chartTitle}>Profiler Waterfall View</h3>
-        <div className={styles.subheadersContainer}>
-          {Object.values(colorLegend).map(({ color, label }) => (
-            <div key={label} className={styles.subheaderContainer}>
-              <p className={styles.subheaderLabel}>{label}</p>
-              <div
-                className={styles.colorSquare}
-                style={{ backgroundColor: color }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
 
-      <svg ref={chartRef} data-testid="waterfall-chart">
-        <g ref={marginChartRef}>
-          <g ref={xAxisRef} />
-          <g ref={yAxisRef} />
-          <g ref={dataRef} />
-        </g>
-      </svg>
-      <Tooltip ref={toolTipRef} />
+        <svg ref={chartRef} data-testid="waterfall-chart">
+          <g ref={marginChartRef}>
+            <g ref={xAxisRef} />
+            <g ref={yAxisRef} />
+            <g ref={dataRef} />
+          </g>
+        </svg>
+        <Tooltip ref={toolTipRef} />
+      </div>
     </>
   )
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './Modal.module.css'
+import { ReactComponent as CloseIcon } from '../../icons/close.svg'
 
-export const Modal = ({ isOpen, closeModal, children }) => {
+export const Modal = ({ isOpen, closeModal, children, title }) => {
   const modalRef = React.useRef(null)
 
   const handleClickOutside = e => {
@@ -14,11 +15,12 @@ export const Modal = ({ isOpen, closeModal, children }) => {
     <div className={styles.modalWrapper} onClick={handleClickOutside}>
       <div className={styles.container} ref={modalRef}>
         <div className={styles.header}>
+          <div className={styles.title}>{title}</div>
           <button className={styles.closeButton} onClick={closeModal}>
-            Close
+            <CloseIcon />
           </button>
         </div>
-        <div>{children}</div>
+        <div className={styles.content}>{children}</div>
       </div>
     </div>
   ) : null
