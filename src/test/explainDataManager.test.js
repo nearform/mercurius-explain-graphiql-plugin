@@ -10,7 +10,7 @@ describe('Explain Data Manager', () => {
       resolverCalls: data.extensions.explain.resolverCalls.data
     })
 
-    expect(mockDispatchEvent).toBeCalledTimes(1)
+    expect(mockDispatchEvent).toHaveBeenCalledTimes(1)
   })
 
   it('Explain Data Manager saved data should persist', () => {

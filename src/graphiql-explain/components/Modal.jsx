@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Modal.module.css'
-import { ReactComponent as CloseIcon } from '../../icons/close.svg'
+import CloseIcon from '../../icons/close.svg?react'
 
 export const Modal = ({ isOpen, closeModal, children, title }) => {
   const modalRef = React.useRef(null)
