@@ -24,8 +24,8 @@ describe('Check the utils functions', () => {
     const response = saveExplainResponse(mockData)
 
     expect(response).toEqual(mockData)
-    expect(mockSetExplain).toBeCalledTimes(1)
-    expect(mockSetExplain).toBeCalledWith({
+    expect(mockSetExplain).toHaveBeenCalledTimes(1)
+    expect(mockSetExplain).toHaveBeenCalledWith({
       profiler: mockData.extensions.explain.profiler.data,
       resolverCalls: mockData.extensions.explain.resolverCalls.data
     })
@@ -45,8 +45,8 @@ describe('Check the utils functions', () => {
     const response = parseFetchResponse(mockData)
 
     expect(response).toEqual(mockData)
-    expect(mockSetExplain).toBeCalledTimes(1)
-    expect(mockSetExplain).toBeCalledWith(mockExplain)
+    expect(mockSetExplain).toHaveBeenCalledTimes(1)
+    expect(mockSetExplain).toHaveBeenCalledWith(mockExplain)
   })
 
   it('appendTotalsToExplainResponse should add totals for each path of explain', () => {

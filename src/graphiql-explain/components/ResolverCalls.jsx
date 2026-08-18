@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
+import ArrowIcon from '../../icons/arrow.svg?react'
 import { useResolverCalls } from '../hooks/useResolverCalls'
 import styles from './ResolverCalls.module.css'
 import { SearchInput } from './SearchInput'

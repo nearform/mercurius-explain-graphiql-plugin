@@ -10,7 +10,7 @@ import {
 } from 'd3'
 import { Tooltip } from './Tooltip'
 import { useWindowSize } from '../hooks/useWindowResize'
-import { ReactComponent as ArrowIcon } from '../../icons/arrow.svg'
+import ArrowIcon from '../../icons/arrow.svg?react'
 import styles from './WaterfallChart.module.css'
 import tooltipStyles from './Tooltip.module.css'
 import { isLight } from '../constants/thresholds'

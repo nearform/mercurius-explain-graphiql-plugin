@@ -1,5 +1,5 @@
 import styles from './SearchInput.module.css'
-import { ReactComponent as SearchIcon } from '../../icons/search.svg'
+import SearchIcon from '../../icons/search.svg?react'
 
 export const SearchInput = ({ onChange, placeholder }) => {
   return (
