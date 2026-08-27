@@ -120,7 +120,7 @@ import { GraphiQL } from 'graphiql'
 import { createGraphiQLFetcher } from '@graphiql/toolkit'
 
 import 'graphiql/graphiql.css'
-import '@graphiql/react/dist/style.css'
+import '@graphiql/react/style.css'
 
 function App() {
   const fetcher = createGraphiQLFetcher({
@@ -219,7 +219,7 @@ import { GraphiQL } from 'graphiql'
 import { createGraphiQLFetcher, fetcherReturnToPromise } from '@graphiql/toolkit'
 
 import 'graphiql/graphiql.css'
-import '@graphiql/react/dist/style.css'
+import '@graphiql/react/style.css'
 
 import { graphiqlExplainPlugin, parseFetchResponse } from 'mercurius-explain-graphiql-plugin'
 

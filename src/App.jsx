@@ -6,7 +6,7 @@ import { graphiqlExplainPlugin, parseFetchResponse } from './graphiql-explain'
 import { fetcherWrapper } from './fetcherWrapper'
 
 import 'graphiql/graphiql.css'
-import '@graphiql/react/dist/style.css'
+import '@graphiql/react/style.css'
 
 function App() {
   const fetcher = createGraphiQLFetcher({
