@@ -4,6 +4,17 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      # @babel/* majors peer on each other (incl. @babel/eslint-parser), so bump them together
+      babel:
+        patterns:
+          - '@babel/*'
+      eslint:
+        patterns:
+          - eslint
+          - eslint-*
+          - '@eslint/*'
+          - globals
   - package-ecosystem: github-actions
     directory: /
     schedule:
