@@ -1,4 +1,4 @@
-require('@testing-library/jest-dom/extend-expect')
+require('@testing-library/jest-dom')
 
 //adds the missing but required functions to document object so graphiql can be rendered
 global.document.createRange = function () {
