@@ -1,10 +1,9 @@
 import js from '@eslint/js'
 import globals from 'globals'
-import babelParser from '@babel/eslint-parser'
-import react from 'eslint-plugin-react'
+import reactX from 'eslint-plugin-react-x'
 import reactHooks from 'eslint-plugin-react-hooks'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
-import importPlugin from 'eslint-plugin-import'
+import importX from 'eslint-plugin-import-x'
 import jest from 'eslint-plugin-jest'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 
@@ -13,14 +12,13 @@ export default [
     ignores: ['dist/**', 'coverage/**', 'node_modules/**']
   },
   js.configs.recommended,
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
+  reactX.configs.recommended,
+  reactX.configs['disable-conflict-eslint-plugin-react-hooks'],
   jsxA11y.flatConfigs.recommended,
   {
     files: ['**/*.{js,jsx,mjs,cjs}'],
     languageOptions: {
-      parser: babelParser,
-      ecmaVersion: 2021,
+      ecmaVersion: 'latest',
       sourceType: 'module',
       parserOptions: {
         ecmaFeatures: { jsx: true }
@@ -33,18 +31,11 @@ export default [
     },
     plugins: {
       'react-hooks': reactHooks,
-      import: importPlugin
-    },
-    settings: {
-      react: { version: 'detect' }
+      import: importX
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      'react/jsx-uses-react': 'error',
-      'react/jsx-uses-vars': 'error',
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
       'import/first': 'error',
       'import/no-amd': 'error',
       'import/no-anonymous-default-export': 'warn'
